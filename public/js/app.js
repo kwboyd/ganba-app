@@ -12488,11 +12488,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     update: function update(data) {
-      // this.fetch();
-      var i = this.vocabs.indexOf(data.vocab);
-      for (var d in data) {
-        this.vocabs[i][d] = data[d];
-      }
+      this.fetch();
+      // var i = this.vocabs.indexOf(data.vocab);
+      // for (var d in data) {
+      //   this.vocabs[i][d] = data[d];
+      // }
     },
     remove: function remove(i) {
       console.log('App -> remove ID: ' + i);
@@ -12549,6 +12549,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -12561,8 +12580,55 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       word: this.vocab.word,
       pronunciation: this.vocab.pronunciation,
       meaning: this.vocab.meaning,
-      sentence: this.vocab.sentence
+      sentence: this.vocab.sentence,
+      editing: false
     };
+  },
+
+
+  methods: {
+    remove: function remove() {
+      var _this = this;
+
+      console.log('Vocab -> remove');
+      this.loading = true;
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete('/vocabs/' + this.vocab.id).then(function (response) {
+        console.log('Vocab -> remove success');
+        _this.$emit('deleted');
+        _this.loading = false;
+      }).catch(function (error) {
+        console.log('Vocab -> remove error');
+        // stop deleting and dont remove from the dom
+        // tell the user deletion failed
+      });
+    },
+    save: function save() {
+      var _this2 = this;
+
+      console.log('Vocab -> save');
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('/vocabs/' + this.vocab.id, {
+        word: this.word,
+        meaning: this.meaning,
+        pronunciation: this.pronunciation,
+        sentence: this.sentence
+      }).then(function (response) {
+        console.log('Vocab -> save success');
+        _this2.$emit('updated', {
+          word: _this2.word,
+          meaning: _this2.meaning,
+          pronunciation: _this2.pronunciation,
+          sentence: _this2.sentence
+        });
+        _this2.editing = false;
+      }).catch(function (error) {
+        console.log('Vocab -> save error');
+        //show the user that it couldn't be updated
+      });
+    },
+    cancel: function cancel() {
+      console.log('Vocab -> cancel');
+      this.word = this.vocab.word, this.pronunciation = this.vocab.pronunciation, this.meaning = this.vocab.meaning, this.sentence = this.vocab.sentence, this.editing = false;
+    }
   }
 });
 
@@ -32390,8 +32456,137 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "panel-body"
   }, [_c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (!_vm.editing),
+      expression: "!editing"
+    }],
     staticClass: "live"
-  }, [_vm._v("\n      " + _vm._s(_vm.vocab.word) + " " + _vm._s(_vm.vocab.meaning) + "\n      " + _vm._s(_vm.vocab.meaning) + " " + _vm._s(_vm.vocab.sentence) + "\n    ")])])])
+  }, [_vm._v("\n      " + _vm._s(_vm.vocab.word) + " " + _vm._s(_vm.vocab.meaning) + "\n      " + _vm._s(_vm.vocab.pronunciation) + " " + _vm._s(_vm.vocab.sentence) + "\n      "), _c('a', {
+    staticClass: "tool",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.remove($event)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-remove"
+  })]), _vm._v(" "), _c('a', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (!_vm.editing),
+      expression: "!editing"
+    }],
+    staticClass: "tool",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.editing = true
+      }
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-pencil"
+  })])]), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.editing),
+      expression: "editing"
+    }],
+    staticClass: "editing"
+  }, [_c('p', [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.word),
+      expression: "word"
+    }],
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.word)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.word = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.meaning),
+      expression: "meaning"
+    }],
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.meaning)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.meaning = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.pronunciation),
+      expression: "pronunciation"
+    }],
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.pronunciation)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.pronunciation = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.sentence),
+      expression: "sentence"
+    }],
+    domProps: {
+      "value": (_vm.sentence)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.sentence = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('p', [_c('button', {
+    staticClass: "btn btn-success",
+    on: {
+      "click": _vm.save
+    }
+  }, [_vm._v("Save")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default",
+    on: {
+      "click": _vm.cancel
+    }
+  }, [_vm._v("Cancel")])])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

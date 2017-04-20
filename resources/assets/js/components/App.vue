@@ -53,11 +53,11 @@ export default {
     },
 
     update (data) {
-      // this.fetch();
-      var i = this.vocabs.indexOf(data.vocab);
-      for (var d in data) {
-        this.vocabs[i][d] = data[d];
-      }
+      this.fetch();
+      // var i = this.vocabs.indexOf(data.vocab);
+      // for (var d in data) {
+      //   this.vocabs[i][d] = data[d];
+      // }
     },
 
     remove (i) {
