@@ -1,6 +1,6 @@
 <template>
-  <div class="Contact panel panel-default">
-    <div class="panel-body">
+  <div class="panel panel-default">
+    <div>
       <div class="live" v-show="!editing">
         {{ vocab.word }} {{ vocab.meaning }}
         {{ vocab.pronunciation }} {{ vocab.sentence }}
@@ -76,6 +76,7 @@ export default {
         .then((response) => {
           console.log('Vocab -> save success');
           this.$emit('updated', {
+            vocab: this.vocab,
             word: this.word,
             meaning: this.meaning,
             pronunciation: this.pronunciation,

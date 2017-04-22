@@ -1,10 +1,9 @@
 <template lang="html">
   <div>
-  <h1> meow
-  {{cat}}</h1>
-  <textarea v-model="imeinput" @input="kana()"></textarea>
+  <TopNav></TopNav>
+  <textarea v-model="imeInput" @input="kana()"></textarea>
   <VocabForm  @created="fetch"></VocabForm>
-  <div class="VocabList">
+  <div>
     <Vocab v-for="(vocab, index) in vocabs" :key="index" :vocab="vocab" @updated="update" @deleted="remove(index)"></Vocab>
   </div>
 </div>
@@ -14,18 +13,20 @@
 import axios from 'axios';
 import Vocab from './Vocab';
 import VocabForm from './VocabForm';
+import TopNav from './TopNav';
 
 export default {
   components: {
     Vocab,
-    VocabForm
+    VocabForm,
+    TopNav
   },
   data () {
     return {
       vocabs: [],
-      cat: 'preload',
-      imeinput: '',
-      kanaime: ''
+      imeInput: '',
+      kanaime: '',
+      kanaconverted: ''
     }
   },
   mounted () {
@@ -33,10 +34,14 @@ export default {
   },
 
   methods: {
-    kana() {
-      console.log('woof')
-      this.kanaime = wanakana.toKana(this.imeinput);
-      this.imeinput = this.kanaime;
+    kana () {
+      // this.kanaconverted = this.imeInput.slice(0,-1);
+      // // var currentKana = this.kanaconverted;
+      // this.kanaime = wanakana.toKana(this.kanaconverted);
+      // if (this.Imeinput.length > 2) {
+      //   this.Imeinput = this.kanaime + this.Imeinput.slice(this.Imeinput.length - 1);
+      // }
+      // this.Imeinput = this.kanaime;
     },
     fetch () {
       console.log('App -> fetch');
@@ -53,11 +58,13 @@ export default {
     },
 
     update (data) {
-      this.fetch();
-      // var i = this.vocabs.indexOf(data.vocab);
-      // for (var d in data) {
-      //   this.vocabs[i][d] = data[d];
-      // }
+      // this.fetch();
+      var i = this.vocabs.indexOf(data.vocab);
+      for (var d in data) {
+        var vocab = this.vocabs[i];
+        if (d === 'vocab') continue;
+        vocab[d] = data[d];
+      }
     },
 
     remove (i) {
@@ -69,5 +76,18 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
+@import '../../sass/_variables.scss';
+
+body {
+  background-color: $beige;
+}
+
+* {
+  margin: 0;
+}
+
+a {
+  cursor: pointer;
+}
 </style>

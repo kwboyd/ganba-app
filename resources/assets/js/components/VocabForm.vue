@@ -1,5 +1,5 @@
 <template>
-  <div class="VocabForm">
+  <div>
     <input type="text" v-model="word" />
     <input type="text" v-model="pronunciation" />
     <input type="text" v-model="meaning" />

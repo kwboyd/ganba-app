@@ -12460,7 +12460,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       vocabs: [],
       cat: 'preload',
       imeinput: '',
-      kanaime: ''
+      kanaime: '',
+      kana: ''
     };
   },
   mounted: function mounted() {
@@ -12471,8 +12472,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     kana: function kana() {
       console.log('woof');
-      this.kanaime = wanakana.toKana(this.imeinput);
-      this.imeinput = this.kanaime;
+      this.kana = this.imeinput.slice(1, -1);
+      var currentKana = this.kana;
+      this.kanaime = wanakana.toKana(currentKana);
+      // this.imeinput = this.kanaime;
     },
     fetch: function fetch() {
       var _this = this;
@@ -15138,7 +15141,7 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 41 */
@@ -32421,9 +32424,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "created": _vm.fetch
     }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "VocabList"
-  }, _vm._l((_vm.vocabs), function(vocab, index) {
+  }), _vm._v(" "), _c('div', _vm._l((_vm.vocabs), function(vocab, index) {
     return _c('Vocab', {
       key: index,
       attrs: {
@@ -32452,10 +32453,8 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "Contact panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-body"
-  }, [_c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', [_c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -32630,9 +32629,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "VocabForm"
-  }, [_c('input', {
+  return _c('div', [_c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
