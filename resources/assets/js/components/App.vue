@@ -5,8 +5,9 @@
   <div class="container">
   <Intro></Intro>
   <VocabForm  @created="fetch"></VocabForm>
-  <div>
-    <Vocab v-for="(vocab, index) in vocabs" :key="index" :vocab="vocab" @updated="update" @deleted="remove(index)"></Vocab>
+    <h3>Your Deck:</h3>
+  <div class="deck">
+      <Vocab v-for="(vocab, index) in vocabs" :key="index" :vocab="vocab" @updated="update" @deleted="remove(index)"></Vocab>
   </div>
 </div>
 </div>
@@ -121,7 +122,7 @@ p {
 
 .container {
   width: 90%;
-  margin: 3vw auto;
+  margin: 40px auto;
 }
 
 .fa-plus-circle {
@@ -150,6 +151,31 @@ p {
   }
   &:focus {
     outline: none;
+  }
+}
+
+.deck {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (max-width: 769px) {
+  h3 {
+    margin-top: 25px;
+  }
+  .deck {
+    .live {
+      margin-left: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .deck {
+    justify-content: center;
   }
 }
 
