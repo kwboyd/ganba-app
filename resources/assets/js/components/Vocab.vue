@@ -2,8 +2,10 @@
   <div class="panel panel-default">
     <div>
       <div class="live" v-show="!editing">
-        {{ vocab.word }} {{ vocab.meaning }}
-        {{ vocab.pronunciation }} {{ vocab.sentence }}
+        {{ vocab.word }}
+        {{ vocab.pronunciation }}
+        {{ vocab.meaning }}
+         {{ vocab.sentence }}
         <a class="tool" href="#" @click.prevent="remove">
           <i class="glyphicon glyphicon-remove"></i>
         </a>

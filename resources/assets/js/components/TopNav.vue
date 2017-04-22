@@ -3,6 +3,7 @@
     <div class="nav-wrapper">
       <h1><span id="title">Ganba!</span><span id="description">Flashcard Quizzes for Advanced Japanese Learners</span></h1>
       <nav>
+        <a>Creator</a>
         <a>Styleguide</a>
         <a>Documentation</a>
         <a>GitHub</a>
@@ -38,7 +39,7 @@ header {
 }
 h1 {
   margin-left: 20px;
-  font-family: 'Anaheim', sans-serif;
+  font-family: $header-font;
   color: $dark-gray;
   font-weight: 400;
   display: flex;
@@ -49,15 +50,15 @@ h1 {
   margin-left: 1.5em;
 }
 #title {
-  font-family: 'Anaheim', sans-serif;
+  font-family: $header-font;
   font-size: 1.1em;
 }
 nav{
-  width: 250px;
+  width: 280px;
   display: flex;
   justify-content: space-between;
   a {
-    font-family: 'Anaheim', sans-serif;
+    font-family: $header-font;
     font-size: .8em;
     text-transform: uppercase;
     &:hover {
@@ -98,9 +99,6 @@ nav{
   }
   nav {
     margin-top: 20px;
-    a {
-      color: $teal;
-    }
   }
   #description {
     margin-left: 10px;
