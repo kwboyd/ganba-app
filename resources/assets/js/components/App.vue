@@ -1,17 +1,18 @@
 <template lang="html">
-  <div>
+<div>
   <TopNav></TopNav>
   <!-- <textarea v-model="imeInput" @input="kana()"></textarea> -->
   <div class="container">
-  <Intro></Intro>
-  <VocabForm  @created="fetch"></VocabForm>
-    <h3>Your Deck:</h3>
-  <div class="deck">
-      <Vocab v-for="(vocab, index) in reverseVocabs" :key="index" :vocab="vocab" @updated="update" @deleted="remove(index)"></Vocab>
-      <Filler v-if="this.vocabs.length % 3 >= 1"></Filler>
-      <Filler v-if="this.vocabs.length % 3 == 1"></Filler>
+    <Intro></Intro>
+    <VocabForm  @created="fetch"></VocabForm>
+      <h3>Your Deck:</h3>
+    <div class="deck">
+        <Vocab v-for="(vocab, index) in reverseVocabs" :key="index" :vocab="vocab" @updated="update" @deleted="remove(index)"></Vocab>
+        <Filler v-if="this.vocabs.length % 3 >= 1"></Filler>
+        <Filler v-if="this.vocabs.length % 3 == 1"></Filler>
+    </div>
   </div>
-</div>
+  <BottomNav :quizVocabs="quizVocabs"></BottomNav>
 </div>
 </template>
 
@@ -22,6 +23,7 @@ import Vocab from './Vocab';
 import VocabForm from './VocabForm';
 import TopNav from './TopNav';
 import Filler from './Filler';
+import BottomNav from './BottomNav';
 
 export default {
   components: {
@@ -29,14 +31,16 @@ export default {
     Vocab,
     VocabForm,
     TopNav,
-    Filler
+    Filler,
+    BottomNav
   },
   data () {
     return {
       vocabs: [],
       imeInput: '',
       kanaime: '',
-      kanaconverted: ''
+      kanaconverted: '',
+      quizVocabs: []
     }
   },
   mounted () {
