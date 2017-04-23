@@ -84,7 +84,12 @@ export default {
       axios.delete(`/vocabs/${this.vocab.id}`)
         .then((response) => {
           console.log('Vocab -> remove success');
-          this.$emit('deleted')
+          if (this.added == true) {
+            this.$emit('deleted', this.vocab, true);
+            this.added = false;
+          } else {
+            this.$emit('deleted', this.vocab, false);
+          }
           this.loading = false;
         })
         .catch((error) => {

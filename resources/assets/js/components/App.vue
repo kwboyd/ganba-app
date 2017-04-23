@@ -2,19 +2,29 @@
 <div>
   <TopNav></TopNav>
   <!-- <textarea v-model="imeInput" @input="kana()"></textarea> -->
-  <div class="container">
-    <Intro></Intro>
-    <VocabForm  @created="fetch"></VocabForm>
-      <h3>Your Deck:</h3>
-    <div class="deck">
-        <Vocab v-for="(vocab, index) in reverseVocabs" :key="index"
-        :vocab="vocab" @updated="update" @wordRemoved="removeQuizWord"
-        @wordAdded="addWord" @deleted="remove(index)"></Vocab>
-        <Filler v-if="this.vocabs.length % 3 >= 1"></Filler>
-        <Filler v-if="this.vocabs.length % 3 == 1"></Filler>
+  <transition name="fade">
+  <div v-show="!quizMode">
+    <div class="container">
+      <Intro></Intro>
+      <VocabForm  @created="fetch"></VocabForm>
+        <h3>Your Deck:</h3>
+      <div class="deck">
+          <Vocab v-for="(vocab, index) in reverseVocabs" :key="index"
+          :vocab="vocab" @updated="update" @wordRemoved="removeQuizWord"
+          @wordAdded="addWord" @deleted="remove"></Vocab>
+          <Filler v-if="this.vocabs.length % 3 >= 1"></Filler>
+          <Filler v-if="this.vocabs.length % 3 == 1"></Filler>
+      </div>
     </div>
+  <BottomNav @beginQuiz="quizModeStart" :quizVocabs="quizVocabs"></BottomNav>
   </div>
-  <BottomNav :quizVocabs="quizVocabs"></BottomNav>
+</transition>
+<transition name="fade">
+  <div v-show="quizMode">
+    <h2>Quiz Mode</h2>
+  </div>
+</transition>
+
 </div>
 </template>
 
@@ -42,7 +52,8 @@ export default {
       imeInput: '',
       kanaime: '',
       kanaconverted: '',
-      quizVocabs: []
+      quizVocabs: [],
+      quizMode: false
     }
   },
   mounted () {
@@ -96,9 +107,18 @@ export default {
       }
     },
 
-    remove (i) {
-      console.log(`App -> remove ID: ${i}`);
-      this.vocabs.splice(i, 1);
+    remove (vocab, added) {
+      var wordPosition = this.vocabs.indexOf(vocab);
+      this.vocabs.splice(wordPosition, 1);
+      if (added == true) {
+        console.log('added remove')
+        var quizWordPosition = this.quizVocabs.indexOf(vocab);
+        console.log(quizWordPosition)
+        this.quizVocabs.splice(quizWordPosition, 1);
+      }
+    },
+    quizModeStart () {
+      this.quizMode = true;
     }
 
   }

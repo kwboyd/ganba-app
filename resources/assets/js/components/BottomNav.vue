@@ -2,7 +2,7 @@
   <div class="footer">
     <div class="footer-wrapper">
       <p>Current quiz: <span class="bold">{{quizVocabs.length}}</span> words</p>
-      <a href="#"><p id="start-button">START QUIZ <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></p></a>
+      <a href="#" @click="startQuiz"><p id="start-button">START QUIZ <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></p></a>
     </div>
   </div>
 </template>
@@ -11,7 +11,12 @@
 export default {
   props: [
     'quizVocabs'
-  ]
+  ],
+  methods: {
+    startQuiz () {
+      this.$emit('beginQuiz');
+    }
+  }
 }
 </script>
 
