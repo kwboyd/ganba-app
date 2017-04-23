@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div class="intro-text">
     <h2>Let's begin! 始めましょう！</h2>
     <div class="instructions">
       <p>1. Add some words to your deck to study.</p>
@@ -16,6 +16,13 @@ export default {
 </script>
 
 <style lang="scss">
+
+.intro-text {
+  h2 {
+    margin-bottom: 25px;
+    text-align: left;
+  }
+}
 
 .instructions {
   margin-top: 15px;

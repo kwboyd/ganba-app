@@ -1,6 +1,6 @@
 <template>
   <div id="word-form">
-    <h3>Add word to deck:</h3>
+    <h5>Add word to deck:</h5>
     <div id="form-top-line">
       <div class="form-group short-label">
         <label for="word">Word:</label>

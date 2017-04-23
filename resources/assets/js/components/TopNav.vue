@@ -1,7 +1,7 @@
 <template lang="html">
   <header>
     <div class="nav-wrapper">
-      <h1><span id="title">Ganba!</span><span id="description">Flashcard Quizzes for Advanced Japanese Learners</span></h1>
+      <h1><a @click="returnHome" href="#"><span id="title">Ganba!</span></a><span id="description">Flashcard Quizzes for Advanced Japanese Learners</span></h1>
       <nav>
         <a>Creator</a>
         <a>Styleguide</a>
@@ -14,6 +14,11 @@
 
 <script>
 export default {
+  methods: {
+    returnHome () {
+      this.$emit('homeClicked');
+    }
+  }
 }
 </script>
 

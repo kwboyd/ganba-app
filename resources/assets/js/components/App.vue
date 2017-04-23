@@ -1,13 +1,13 @@
 <template lang="html">
 <div>
-  <TopNav></TopNav>
+  <TopNav @homeClicked="goHome"></TopNav>
   <!-- <textarea v-model="imeInput" @input="kana()"></textarea> -->
-  <transition name="fade">
-  <div v-show="!quizMode">
+  <transition-group name="fade" mode="out-in" tag="div">
+  <div v-show="!quizMode"  key="1">
     <div class="container">
       <Intro></Intro>
       <VocabForm  @created="fetch"></VocabForm>
-        <h3>Your Deck:</h3>
+        <h5>Your Deck:</h5>
       <div class="deck">
           <Vocab v-for="(vocab, index) in reverseVocabs" :key="index"
           :vocab="vocab" @updated="update" @wordRemoved="removeQuizWord"
@@ -16,14 +16,12 @@
           <Filler v-if="this.vocabs.length % 3 == 1"></Filler>
       </div>
     </div>
-  <BottomNav @beginQuiz="quizModeStart" :quizVocabs="quizVocabs"></BottomNav>
+    <BottomNav @beginQuiz="quizModeStart" :quizReady="quizReady" :quizVocabs="quizVocabs"></BottomNav>
   </div>
-</transition>
-<transition name="fade">
-  <div v-show="quizMode">
-    <h2>Quiz Mode</h2>
+  <div v-if="quizMode" key="2">
+    <QuizCard @quizDone="finishQuiz" :quizVocabs="quizVocabs"></QuizCard>
   </div>
-</transition>
+</transition-group>
 
 </div>
 </template>
@@ -36,6 +34,7 @@ import VocabForm from './VocabForm';
 import TopNav from './TopNav';
 import Filler from './Filler';
 import BottomNav from './BottomNav';
+import QuizCard from './QuizCard';
 
 export default {
   components: {
@@ -44,7 +43,8 @@ export default {
     VocabForm,
     TopNav,
     Filler,
-    BottomNav
+    BottomNav,
+    QuizCard
   },
   data () {
     return {
@@ -53,7 +53,7 @@ export default {
       kanaime: '',
       kanaconverted: '',
       quizVocabs: [],
-      quizMode: false
+      quizMode: false,
     }
   },
   mounted () {
@@ -63,6 +63,13 @@ export default {
   computed: {
     reverseVocabs: function() {
       return this.vocabs.reverse();
+    },
+    quizReady: function() {
+      if (this.quizVocabs.length > 0) {
+        return true
+      } else {
+        return false
+      }
     }
   },
 
@@ -78,6 +85,9 @@ export default {
     },
     addWord(vocab) {
       this.quizVocabs.push(vocab);
+    },
+    goHome() {
+      this.quizMode = false;
     },
     removeQuizWord(vocab) {
       var wordPosition = this.quizVocabs.indexOf(vocab);
@@ -119,6 +129,9 @@ export default {
     },
     quizModeStart () {
       this.quizMode = true;
+    },
+    finishQuiz () {
+      this.quizMode = false;
     }
 
   }
@@ -138,26 +151,45 @@ body {
 
 a, button {
   cursor: pointer;
+  text-decoration: none;
 }
 
-h1, h2, h3, p, label, a {
+a:hover {
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, p, label, a {
   color: $dark-gray;
 }
 
-h2, h3, p, label {
+h2, h3, h4, h5, p, label {
   font-family: $body-font;
 }
 
-h2, h3 {
+h2, h3, h5 {
   font-weight: 500;
 }
 
 h2 {
+  font-size: 3.5em;
+  text-align: center;
+  margin-top: 30px;
+}
+
+h3 {
   margin-bottom: 15px;
   font-size: 1.8em;
 }
 
-h3 {
+h4 {
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 30px;
+  font-size: 1.3em;
+  font-weight: 500;
+}
+
+h5 {
   margin-top: 45px;
   margin-bottom: 15px;
   font-size: 15pt;
@@ -170,6 +202,14 @@ p {
 
 textarea {
   resize: none;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.inline {
+  display: inline;
 }
 
 .container {
@@ -221,6 +261,28 @@ textarea {
   border-radius: 5px;
 }
 
+.text-center {
+  text-align: center;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for <2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
 .deck {
   display: flex;
   justify-content: space-between;
@@ -248,8 +310,10 @@ textarea {
 }
 
 @media screen and (max-width: 769px) {
-  h3 {
+  h2 {
     margin-top: 25px;
+    font-size: 2.7em;
+    word-break: keep-all;
   }
   .deck {
     .card, .filler {

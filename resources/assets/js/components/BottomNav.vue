@@ -2,7 +2,7 @@
   <div class="footer">
     <div class="footer-wrapper">
       <p>Current quiz: <span class="bold">{{quizVocabs.length}}</span> words</p>
-      <a href="#" @click="startQuiz"><p id="start-button">START QUIZ <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></p></a>
+      <button :disabled="quizVocabs.length < 1" @click="startQuiz" :class="{inactive: !quizReady}" id="start-button">START QUIZ <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
     </div>
   </div>
 </template>
@@ -10,7 +10,8 @@
 <script>
 export default {
   props: [
-    'quizVocabs'
+    'quizVocabs',
+    'quizReady'
   ],
   methods: {
     startQuiz () {
@@ -41,20 +42,26 @@ export default {
   padding-top: 13px;
   padding-bottom: 6px;
   padding-left: 20px;
-  p {
+  p, button {
     color: white;
     font-weight: 400;
     font-size: 1.3em;
     display: inline-block;
   }
+  .inactive {
+    cursor: default;
+    color: #c0d8d1;
+  }
 }
 
 #start-button {
+  border: none;
+  background: none;
   margin-right: 20px;
   float: right;
   font-weight: 700;
   font-size: 1.6em;
-  margin-top: -.27em;
+  margin-top: -.38em;
   display: flex;
   align-items: center;
   i {
@@ -62,7 +69,7 @@ export default {
     margin-left: 8px;
   }
   &:hover {
-    color: #dddddd;
+    color: #dedede;
   }
 }
 
