@@ -4,20 +4,20 @@
     <div id="form-top-line">
       <div class="form-group short-label">
         <label for="word">Word:</label>
-        <input id="word" type="text" v-model="word" />
+        <input maxlength="7" placeholder="Max length: 7 char." id="word" type="text" v-model="word" />
       </div>
       <div class="form-group short-label">
-        <label for="pronunciation">Pronunciation (if applicable):</label>
-        <input id="pronunciation" type="text" v-model="pronunciation" />
+        <label for="pronunciation">Pronunciation (if applicable): </label>
+        <input maxlength="16" placeholder="Max length: 16 char." id="pronunciation" type="text" v-model="pronunciation" />
       </div>
       <div class="form-group meaning-group">
-        <label for="meaning">Meaning:</label>
-        <input id="meaning" type="text" v-model="meaning" />
+        <label for="meaning">Meaning: </label>
+        <input maxlength="40" placeholder="Max length: 40 char." id="meaning" type="text" v-model="meaning" />
       </div>
     </div>
     <div class="form-group sentence-group">
-      <label for="sentence">Example sentence:</label>
-      <textarea id="sentence" v-model="sentence"></textarea>
+      <label for="sentence">Example sentence: </label>
+      <textarea maxlength="30" placeholder="Max length: 30 char." id="sentence" v-model="sentence"></textarea>
     </div>
     <button class="primary-button" @click="create">Add word</button>
   </div>
@@ -100,6 +100,10 @@ export default {
     width: 100%;
     min-height: 40px;
   }
+}
+
+.max-length {
+  font-size: .8em;
 }
 
 input {

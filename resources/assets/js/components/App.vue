@@ -107,6 +107,7 @@ h2, h3 {
 
 h2 {
   margin-bottom: 15px;
+  font-size: 1.8em;
 }
 
 h3 {
@@ -118,6 +119,10 @@ h3 {
 p {
   font-size: 10.5pt;
   font-weight: 400;
+}
+
+textarea {
+  resize: none;
 }
 
 .container {
@@ -134,24 +139,39 @@ p {
   margin: auto 2px;
 }
 
-
-.primary-button {
+.primary-button, .danger-button {
   height: 35px;
   width: 100px;
   color: white;
-  background-color: $teal;
   border-radius: 7px;
   border: 1px solid #747474;
   margin-top: 10px;
   -webkit-appearance: none;
   font-size: 7.5pt;
   text-transform: uppercase;
-  &:hover {
-    background-color: $dark-teal;
-  }
   &:focus {
     outline: none;
   }
+}
+
+.primary-button {
+  background-color: $teal;
+  &:hover {
+    background-color: $dark-teal;
+  }
+}
+
+.danger-button {
+  background-color: $red;
+  &:hover {
+    background-color: $dark-red;
+  }
+}
+
+.button-small {
+  height: 22px;
+  width: 70px;
+  border-radius: 5px;
 }
 
 .deck {
@@ -167,7 +187,7 @@ p {
     margin-top: 25px;
   }
   .deck {
-    .live {
+    .card {
       margin-left: 20px;
     }
   }
@@ -176,6 +196,9 @@ p {
 @media screen and (max-width: 700px) {
   .deck {
     justify-content: center;
+    .card {
+      margin-left: 0px;
+    }
   }
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="card">
       <div class="live" v-show="!editing">
         <a class="tool" href="#" @click.prevent="remove">
           <i class="fa fa-times" aria-hidden="true"></i>
@@ -18,14 +18,14 @@
       </div>
       <div class="editing" v-show="editing">
         <p>
-          <input type="text" v-model="word" />
-          <input type="text" v-model="meaning" />
-          <input type="text" v-model="pronunciation" />
-          <textarea v-model="sentence"></textarea>
+          <input maxlength="7" type="text" v-model="word" />
+          <input maxlength="16" type="text" v-model="pronunciation" />
+          <input maxlength="40" type="text" v-model="meaning" />
+          <textarea maxlength="30" v-model="sentence"></textarea>
         </p>
         <p>
-          <button class="btn btn-success" @click="save">Save</button>
-          <button class="btn btn-default" @click="cancel">Cancel</button>
+          <button class="primary-button button-small" @click="save">Save</button>
+          <button class="danger-button button-small" @click="cancel">Cancel</button>
         </p>
       </div>
     </div>
@@ -113,11 +113,12 @@ export default {
   margin-left: 15px;
 }
 
-.live {
-  width: 300px;
+.card {
+  padding: 5px;
+  width: 320px;
   height: 210px;
   background-color: white;
-  margin-top: 15px;
+  margin-bottom: 20px;
   border: 1px solid #aaaaaa;
   box-shadow: 2px 2px 10px #868686;
   position: relative;
@@ -126,40 +127,62 @@ export default {
   }
   .fa-plus-circle {
     position: absolute;
-    left: 240px;
-    padding-top: 10px;
+    left: 276px;
+    margin-top: 10px;
     font-size: 2em;
   }
 }
 
+.editing {
+  input, textarea {
+    width: 80%;
+    margin-top: 3px;
+  }
+  textarea {
+    height: 55px;
+  }
+  button {
+    margin-top: 3px;
+  }
+  .primary-button {
+    float: left;
+    margin-left: 10%;
+  }
+  .danger-button {
+    float: right;
+    margin-right: 10%;
+  }
+}
+
 .deck-word {
-  font-size: 3em;
+  font-size: 2.5em;
   padding-top: 40px;
 }
 
 .deck-pronunciation {
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 
 .deck-meaning {
-  font-size: 1.1em;
+  font-size: .9em;
 }
 
 .deck-sentence {
   padding-top: 20px;
+  font-size: .8em;
 }
 
 .fa-times {
-  color: #E37780;
+  color: $red;
   font-size: 1.5em;
-  padding-top: 10px;
+  margin-top: 10px;
   float: left;
 }
 
 .fa-pencil {
   position: absolute;
-  left: 245px;
-  padding-top: 175px;
+  left: 280px;
+  margin-top: 183px;
   color: #217EBC;
   font-size: 1.4em;
 }
