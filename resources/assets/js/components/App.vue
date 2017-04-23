@@ -7,7 +7,7 @@
   <VocabForm  @created="fetch"></VocabForm>
     <h3>Your Deck:</h3>
   <div class="deck">
-      <Vocab v-for="(vocab, index) in vocabs" :key="index" :vocab="vocab" @updated="update" @deleted="remove(index)"></Vocab>
+      <Vocab v-for="(vocab, index) in reverseVocabs" :key="index" :vocab="vocab" @updated="update" @deleted="remove(index)"></Vocab>
       <Filler v-if="this.vocabs.length % 3 >= 1"></Filler>
       <Filler v-if="this.vocabs.length % 3 == 1"></Filler>
   </div>
@@ -41,6 +41,12 @@ export default {
   },
   mounted () {
     this.fetch();
+  },
+
+  computed: {
+    reverseVocabs: function() {
+      return this.vocabs.reverse();
+    }
   },
 
   methods: {

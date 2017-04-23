@@ -131,8 +131,8 @@ export default {
   }
   .fa-plus-circle {
     position: absolute;
-    left: 270px;
-    margin-top: 3px;
+    left: 265px;
+    margin-top: 6px;
     font-size: 2em;
     &:hover {
       color: $dark-teal;
@@ -186,7 +186,7 @@ export default {
 .fa-times {
   color: $red;
   font-size: 1.5em;
-  margin-top: 3px;
+  margin-top: 9px;
   float: left;
   &:hover {
     color: $dark-red;
@@ -195,7 +195,7 @@ export default {
 
 .fa-pencil {
   position: absolute;
-  left: 275px;
+  left: 269px;
   margin-top: 173px;
   color: #217EBC;
   font-size: 1.4em;
