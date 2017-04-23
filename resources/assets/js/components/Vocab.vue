@@ -11,12 +11,12 @@
           <i class="fa fa-pencil" aria-hidden="true"></i>
         </a>
         <transition name="fade">
-          <a class="tool" href="#" @click.prevent="add" v-show="!added">
+          <a class="tool" href="#" @click.prevent="addVocab" v-if="!this.addedQuiz">
             <i class="fa fa-plus-circle" aria-hidden="true"></i>
           </a>
         </transition>
         <transition name="fade">
-          <a class="tool" href="#" @click.prevent="removeWord" v-show="added">
+          <a class="tool" href="#" @click.prevent="removeVocab" v-if="this.addedQuiz">
             <i class="fa fa-minus-circle" aria-hidden="true"></i>
           </a>
         </transition>
@@ -61,21 +61,22 @@ export default {
       sentence: this.vocab.sentence,
       editing: false,
       loading: false,
-      added: false
+      addedQuiz: false,
+      meow: false
     }
   },
 
   methods: {
-    add () {
+    addVocab () {
       console.log('Vocab -> add (for quiz)');
       this.$emit('wordAdded', this.vocab);
-      this.added = true;
+      this.addedQuiz = true;
     },
 
-    removeWord () {
-      console.log('Vocab -> removeWord');
+    removeVocab () {
+      console.log('Vocab -> removeVocab');
       this.$emit('wordRemoved', this.vocab);
-      this.added = false;
+      this.addedQuiz = false;
     },
 
     remove () {
@@ -84,13 +85,9 @@ export default {
       axios.delete(`/vocabs/${this.vocab.id}`)
         .then((response) => {
           console.log('Vocab -> remove success');
-          if (this.added == true) {
-            this.$emit('deleted', this.vocab, true);
-            this.added = false;
-          } else {
-            this.$emit('deleted', this.vocab, false);
-          }
+            this.$emit('deleted', this.vocab);
           this.loading = false;
+
         })
         .catch((error) => {
           console.log('Vocab -> remove error');

@@ -7,11 +7,11 @@
     <div class="container">
       <Intro></Intro>
       <VocabForm  @created="fetch"></VocabForm>
-        <h5>Your Deck:</h5>
+        <h6>Your Deck:</h6>
       <div class="deck">
-          <Vocab v-for="(vocab, index) in reverseVocabs" :key="index"
+          <Vocab v-for="(vocab, index) in vocabs" :key="index"
           :vocab="vocab" @updated="update" @wordRemoved="removeQuizWord"
-          @wordAdded="addWord" @deleted="remove"></Vocab>
+          @wordAdded="addQuizWord" @deleted="remove"></Vocab>
           <Filler v-if="this.vocabs.length % 3 >= 1"></Filler>
           <Filler v-if="this.vocabs.length % 3 == 1"></Filler>
       </div>
@@ -83,7 +83,7 @@ export default {
       // }
       // this.Imeinput = this.kanaime;
     },
-    addWord(vocab) {
+    addQuizWord(vocab) {
       this.quizVocabs.push(vocab);
     },
     goHome() {
@@ -117,15 +117,14 @@ export default {
       }
     },
 
-    remove (vocab, added) {
-      var wordPosition = this.vocabs.indexOf(vocab);
-      this.vocabs.splice(wordPosition, 1);
-      if (added == true) {
-        console.log('added remove')
-        var quizWordPosition = this.quizVocabs.indexOf(vocab);
-        console.log(quizWordPosition)
-        this.quizVocabs.splice(quizWordPosition, 1);
+    remove (vocab) {
+      let index = this.vocabs.indexOf(vocab);
+      this.vocabs.splice(index, 1);
+      let quizVocabIndex = this.quizVocabs.indexOf(vocab);
+      if (quizVocabIndex > -1) {
+        this.quizVocabs.splice(quizVocabIndex, 1);
       }
+
     },
     quizModeStart () {
       this.quizMode = true;
@@ -158,15 +157,15 @@ a:hover {
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, p, label, a {
+h1, h2, h3, h4, h5, h6, p, label, a {
   color: $dark-gray;
 }
 
-h2, h3, h4, h5, p, label {
+h2, h3, h4, h5, h6, p, label {
   font-family: $body-font;
 }
 
-h2, h3, h5 {
+h2, h3, h5, h6 {
   font-weight: 500;
 }
 
@@ -177,11 +176,17 @@ h2 {
 }
 
 h3 {
+  font-size: 3em;
+  text-align: center;
+  margin-top: 30px;
+}
+
+h4 {
   margin-bottom: 15px;
   font-size: 1.8em;
 }
 
-h4 {
+h5 {
   text-align: center;
   margin-top: 0px;
   margin-bottom: 30px;
@@ -189,7 +194,7 @@ h4 {
   font-weight: 500;
 }
 
-h5 {
+h6 {
   margin-top: 45px;
   margin-bottom: 15px;
   font-size: 15pt;
@@ -310,7 +315,7 @@ textarea {
 }
 
 @media screen and (max-width: 769px) {
-  h2 {
+  h3 {
     margin-top: 25px;
     font-size: 2.7em;
     word-break: keep-all;

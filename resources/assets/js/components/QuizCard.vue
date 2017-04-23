@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="quizbox">
     <h2>Quiz Mode</h2>
-    <h5>Score: {{score}}/{{quizVocabs.length * 2}}</h5>
+    <h6>Score: {{score}}/{{quizVocabs.length * 2}}</h6>
   <div class="quiz-card">
       <div v-if="!results">
         <p class="quiz-word">{{quizVocabs[this.wordIndex].word}}</p>
@@ -28,7 +28,7 @@
         </transition>
     </div>
     <div v-if="results">
-      <h2>Final score: {{score}}/{{quizVocabs.length * 2}}</h2>
+      <h3>Final score: {{score}}/{{quizVocabs.length * 2}}</h3>
       <button @click.prevent="finishQuiz" class="primary">End Quiz</button>
     </div>
   </div>
@@ -102,7 +102,7 @@ export default {
   h2 {
     margin-bottom: 5px;
   }
-  h5 {
+  h6 {
     margin-top: 0px;
     text-align: center;
     margin-bottom: 20px;
@@ -110,9 +110,9 @@ export default {
 }
 
 #example-button {
-  margin-top: 15px;
+  margin-top: 10px;
   margin-bottom: 6px;
-  font-size: 1em;
+  font-size: .8em;
 }
 
 .quiz-sentence {
@@ -124,6 +124,7 @@ export default {
   margin-left: auto;
   margin-right: auto;
   display: block;
+  margin-top: 25px;
 }
 .continue-button {
 }
@@ -149,7 +150,7 @@ export default {
   margin-left: auto;
   margin-right: auto;
   width: 80vw;
-  height: 420px;
+  height: 425px;
   background-color: white;
   border: 1px solid #aaaaaa;
   box-shadow: 2px 2px 10px #868686;

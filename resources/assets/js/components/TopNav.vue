@@ -3,10 +3,10 @@
     <div class="nav-wrapper">
       <h1><a @click="returnHome" href="#"><span id="title">Ganba!</span></a><span id="description">Flashcard Quizzes for Advanced Japanese Learners</span></h1>
       <nav>
-        <a>Creator</a>
+        <a href="http://www.kwboyd.com" alt="Kate Boyd Portfolio">Creator</a>
         <a>Styleguide</a>
         <a>Documentation</a>
-        <a>GitHub</a>
+        <a href="https://github.com/kwboyd/ganba-app" alt="GitHub">GitHub</a>
       </nav>
     </div>
   </header>

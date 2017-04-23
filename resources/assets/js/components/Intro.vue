@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="intro-text">
-    <h2>Let's begin! 始めましょう！</h2>
+    <h3>Let's begin! 始めましょう！</h3>
     <div class="instructions">
       <p>1. Add some words to your deck to study.</p>
       <p>2. Add cards you want to be quizzed on to your quiz set using the <i class="fa fa-plus-circle" aria-hidden="true"></i>
@@ -18,7 +18,7 @@ export default {
 <style lang="scss">
 
 .intro-text {
-  h2 {
+  h3 {
     margin-bottom: 25px;
     text-align: left;
   }
