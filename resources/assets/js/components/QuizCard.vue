@@ -5,7 +5,7 @@
   <div class="quiz-card">
       <div v-if="!results">
         <p class="quiz-word">{{quizVocabs[this.wordIndex].word}}</p>
-        <button class="center" id="example-button" @click.prevent="showSentence = !showSentence">Show example sentence</button>
+        <button class="center" id="example-button" @click.prevent="showSentence = !showSentence">{{!showSentence ? 'Show example sentence' : 'Hide example sentence'}}</button>
         <p v-show="showSentence" class="quiz-sentence text-center">{{quizVocabs[this.wordIndex].sentence}}</p>
         <div class="quiz-group" id="pronun-group">
           <label for="quizpronun">Pronunciation:</label>
@@ -27,10 +27,12 @@
           </div>
         </transition>
     </div>
+    <transition name="fade">
     <div v-if="results">
       <h3>Final score: {{score}}/{{quizVocabs.length * 2}}</h3>
       <button @click.prevent="finishQuiz" class="primary">End Quiz</button>
     </div>
+  </transition>
   </div>
 </div>
 </template>
