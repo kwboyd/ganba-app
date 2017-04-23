@@ -7,7 +7,9 @@
     <VocabForm  @created="fetch"></VocabForm>
       <h3>Your Deck:</h3>
     <div class="deck">
-        <Vocab v-for="(vocab, index) in reverseVocabs" :key="index" :vocab="vocab" @updated="update" @deleted="remove(index)"></Vocab>
+        <Vocab v-for="(vocab, index) in reverseVocabs" :key="index"
+        :vocab="vocab" @updated="update" @wordRemoved="removeQuizWord"
+        @wordAdded="addWord" @deleted="remove(index)"></Vocab>
         <Filler v-if="this.vocabs.length % 3 >= 1"></Filler>
         <Filler v-if="this.vocabs.length % 3 == 1"></Filler>
     </div>
@@ -62,6 +64,13 @@ export default {
       //   this.Imeinput = this.kanaime + this.Imeinput.slice(this.Imeinput.length - 1);
       // }
       // this.Imeinput = this.kanaime;
+    },
+    addWord(vocab) {
+      this.quizVocabs.push(vocab);
+    },
+    removeQuizWord(vocab) {
+      var wordPosition = this.quizVocabs.indexOf(vocab);
+      this.quizVocabs.splice(wordPosition, 1);
     },
     fetch () {
       console.log('App -> fetch');
@@ -198,6 +207,13 @@ textarea {
   flex-wrap: wrap;
   margin-left: auto;
   margin-right: auto;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
 }
 
 @media screen and (max-width: 1140px) {

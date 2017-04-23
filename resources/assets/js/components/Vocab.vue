@@ -10,9 +10,16 @@
         <a class="tool" href="#" @click.prevent="editing = true" v-show="!editing">
           <i class="fa fa-pencil" aria-hidden="true"></i>
         </a>
-        <a class="tool" href="#">
-          <i class="fa fa-plus-circle" aria-hidden="true"></i>
-        </a>
+        <transition name="fade">
+          <a class="tool" href="#" @click.prevent="add" v-show="!added">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+          </a>
+        </transition>
+        <transition name="fade">
+          <a class="tool" href="#" @click.prevent="removeWord" v-show="added">
+            <i class="fa fa-minus-circle" aria-hidden="true"></i>
+          </a>
+        </transition>
         <p class="deck-word">{{ vocab.word }}</p>
         <p class="deck-pronunciation">{{ vocab.pronunciation }}</p>
         <p class="deck-meaning">{{ vocab.meaning }}</p>
@@ -53,11 +60,23 @@ export default {
       meaning: this.vocab.meaning,
       sentence: this.vocab.sentence,
       editing: false,
-      loading: false
+      loading: false,
+      added: false
     }
   },
 
   methods: {
+    add () {
+      console.log('Vocab -> add (for quiz)');
+      this.$emit('wordAdded', this.vocab);
+      this.added = true;
+    },
+
+    removeWord () {
+      console.log('Vocab -> removeWord');
+      this.$emit('wordRemoved', this.vocab);
+      this.added = false;
+    },
 
     remove () {
       console.log('Vocab -> remove');
@@ -129,11 +148,13 @@ export default {
   p {
     text-align: center;
   }
-  .fa-plus-circle {
+  .fa-plus-circle, .fa-minus-circle {
     position: absolute;
     left: 265px;
     margin-top: 6px;
     font-size: 2em;
+  }
+  .fa-plus-circle {
     &:hover {
       color: $dark-teal;
     }
@@ -144,13 +165,20 @@ export default {
   padding: 5px;
 }
 
+.fa-minus-circle {
+  color: $red;
+  &:hover {
+    color: $dark-red;
+  }
+}
+
 .editing {
   input, textarea {
     width: 80%;
     margin-top: 3px;
   }
   textarea {
-    height: 55px;
+    height: 50px;
   }
   button {
     margin-top: 3px;
