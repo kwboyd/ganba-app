@@ -9,7 +9,7 @@
       <VocabForm  @created="fetch"></VocabForm>
         <h6>Your Deck:</h6>
       <div class="deck">
-          <Vocab v-for="(vocab, index) in vocabs" :key="index"
+          <Vocab v-for="(vocab, index) in vocabs" :key="vocab.id"
           :vocab="vocab" @updated="update" @wordRemoved="removeQuizWord"
           @wordAdded="addQuizWord" @deleted="remove"></Vocab>
           <Filler v-if="this.vocabs.length % 3 >= 1"></Filler>
@@ -118,9 +118,10 @@ export default {
     },
 
     remove (vocab) {
-      let index = this.vocabs.indexOf(vocab);
-      this.vocabs.splice(index, 1);
-      let quizVocabIndex = this.quizVocabs.indexOf(vocab);
+      let currentVocab = vocab;
+      let currentIndex = this.vocabs.indexOf(currentVocab);
+      this.vocabs.splice(currentIndex, 1);
+      let quizVocabIndex = this.quizVocabs.indexOf(currentVocab);
       if (quizVocabIndex > -1) {
         this.quizVocabs.splice(quizVocabIndex, 1);
       }
