@@ -62,7 +62,6 @@ export default {
       editing: false,
       loading: false,
       addedQuiz: false,
-      meow: false
     }
   },
 
