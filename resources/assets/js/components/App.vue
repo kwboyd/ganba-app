@@ -8,6 +8,8 @@
     <h3>Your Deck:</h3>
   <div class="deck">
       <Vocab v-for="(vocab, index) in vocabs" :key="index" :vocab="vocab" @updated="update" @deleted="remove(index)"></Vocab>
+      <Filler v-if="this.vocabs.length % 3 >= 1"></Filler>
+      <Filler v-if="this.vocabs.length % 3 == 1"></Filler>
   </div>
 </div>
 </div>
@@ -19,13 +21,15 @@ import Intro from './Intro';
 import Vocab from './Vocab';
 import VocabForm from './VocabForm';
 import TopNav from './TopNav';
+import Filler from './Filler';
 
 export default {
   components: {
     Intro,
     Vocab,
     VocabForm,
-    TopNav
+    TopNav,
+    Filler
   },
   data () {
     return {
@@ -95,6 +99,10 @@ body {
 
 a, button {
   cursor: pointer;
+}
+
+h1, h2, h3, p, label, a {
+  color: $dark-gray;
 }
 
 h2, h3, p, label {
@@ -182,13 +190,25 @@ textarea {
   margin-right: auto;
 }
 
+@media screen and (max-width: 1140px) {
+  .deck {
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+    .card, .filler {
+      margin-right: 30px;
+    }
+  }
+}
+
 @media screen and (max-width: 769px) {
   h3 {
     margin-top: 25px;
   }
   .deck {
-    .card {
+    .card, .filler {
       margin-left: 20px;
+      margin-right: 0px;
     }
   }
 }
@@ -196,7 +216,7 @@ textarea {
 @media screen and (max-width: 700px) {
   .deck {
     justify-content: center;
-    .card {
+    .card, .filler {
       margin-left: 0px;
     }
   }

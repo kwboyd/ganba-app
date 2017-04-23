@@ -1,6 +1,8 @@
 <template>
-  <div>
     <div class="card">
+      <div v-show="this.loading" class="loader-div">
+        <Loader></Loader>
+      </div>
       <div class="live" v-show="!editing">
         <a class="tool" href="#" @click.prevent="remove">
           <i class="fa fa-times" aria-hidden="true"></i>
@@ -29,13 +31,16 @@
         </p>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Loader from './Loader';
 
 export default {
+  components: {
+    Loader
+  },
 
   props: [
     'vocab'
@@ -47,7 +52,8 @@ export default {
       pronunciation: this.vocab.pronunciation,
       meaning: this.vocab.meaning,
       sentence: this.vocab.sentence,
-      editing: false
+      editing: false,
+      loading: false
     }
   },
 
@@ -64,8 +70,6 @@ export default {
         })
         .catch((error) => {
           console.log('Vocab -> remove error');
-          // stop deleting and dont remove from the dom
-          // tell the user deletion failed
         });
     },
 
@@ -114,11 +118,11 @@ export default {
 }
 
 .card {
-  padding: 5px;
   width: 320px;
   height: 210px;
   background-color: white;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  margin-right: 10px;
   border: 1px solid #aaaaaa;
   box-shadow: 2px 2px 10px #868686;
   position: relative;
@@ -127,10 +131,17 @@ export default {
   }
   .fa-plus-circle {
     position: absolute;
-    left: 276px;
-    margin-top: 10px;
+    left: 270px;
+    margin-top: 3px;
     font-size: 2em;
+    &:hover {
+      color: $dark-teal;
+    }
   }
+}
+
+.live {
+  padding: 5px;
 }
 
 .editing {
@@ -175,16 +186,37 @@ export default {
 .fa-times {
   color: $red;
   font-size: 1.5em;
-  margin-top: 10px;
+  margin-top: 3px;
   float: left;
+  &:hover {
+    color: $dark-red;
+  }
 }
 
 .fa-pencil {
   position: absolute;
-  left: 280px;
-  margin-top: 183px;
+  left: 275px;
+  margin-top: 173px;
   color: #217EBC;
   font-size: 1.4em;
+  &:hover {
+    color: #1b6494;
+  }
+}
+
+.loader-div {
+  width: 320px;
+  height: 210px;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  .loader {
+    margin-left:23%;
+    margin-top: 5%;
+    svg {
+      height: 180px;
+    }
+  }
 }
 
 </style>

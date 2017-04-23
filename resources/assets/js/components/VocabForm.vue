@@ -19,27 +19,40 @@
       <label for="sentence">Example sentence: </label>
       <textarea maxlength="30" placeholder="Max length: 30 char." id="sentence" v-model="sentence"></textarea>
     </div>
-    <button class="primary-button" @click="create">Add word</button>
+    <div class="button-div">
+    <button class="primary-button" @click="create" :disabled="loading">Add word</button>
+    <Loader v-show="loading"></Loader>
+  </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Loader from './Loader';
 
 export default {
+  components: {
+    Loader
+  },
 
   data() {
     return {
       word: '',
       pronunciation: '',
       meaning: '',
-      sentence: ''
+      sentence: '',
+      loading: false
     }
   },
 
   methods: {
     create () {
       console.log('VocabForm -> create');
+      if (this.loading) {
+        alert('Request already in process.');
+        return false;
+      }
+      this.loading = true;
       this.sendRequest();
     },
 
@@ -53,6 +66,7 @@ export default {
       .then((response) => {
         console.log('VocabForm -> sendRequest success');
         console.log(response.data);
+        this.loading = false;
         this.reset();
         this.$emit('created');
       })
@@ -92,6 +106,10 @@ export default {
   .meaning-group {
     width: 30%;
   }
+}
+
+.button-div {
+  display: flex;
 }
 
 .sentence-group {
