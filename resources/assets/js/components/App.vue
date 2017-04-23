@@ -9,7 +9,7 @@
       <VocabForm  @created="fetch"></VocabForm>
         <h6>Your Deck:</h6>
       <div class="deck">
-          <Vocab v-for="(vocab, index) in vocabs" :key="vocab.id"
+          <Vocab v-for="(vocab, index) in reverseVocabs" :key="vocab.id"
           :vocab="vocab" @updated="update" @wordRemoved="removeQuizWord"
           @wordAdded="addQuizWord" @deleted="remove"></Vocab>
           <Filler v-if="this.vocabs.length % 3 >= 1"></Filler>

@@ -110,6 +110,9 @@ export default {
 
 .button-div {
   display: flex;
+  .loader {
+    width: 45px;
+  }
 }
 
 .sentence-group {

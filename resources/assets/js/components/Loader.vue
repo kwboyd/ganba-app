@@ -11,11 +11,11 @@ export default {
 
 <style lang="css">
 .loader {
+  padding-top: 5px;
+  margin-left: 5px;
   svg {
     width: 45px;
     height: 45px;
   }
-  padding-top: 5px;
-  margin-left: 5px;
 }
 </style>
