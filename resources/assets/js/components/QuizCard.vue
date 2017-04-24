@@ -58,14 +58,17 @@ export default {
   ],
   methods: {
     checkAnswers() {
+      // turns off active quizzing mode
       this.quizzing = false;
       if (this.pronunAnswer == this.quizVocabs[this.wordIndex].pronunciation) {
+        // checks if pronunciation input is correct
         this.pronunResult = 'correct';
         this.score++;
       } else {
         this.pronunResult = 'incorrect';
       };
       if (this.meaningAnswer == this.quizVocabs[this.wordIndex].meaning) {
+        // checks if meaning input is correct
         this.meaningResult = 'correct';
         this.score++;
       } else {
@@ -73,6 +76,7 @@ export default {
       }
     },
     resetAnswers () {
+      // resets sentence showing, inputs, results, and active quizzing
       this.showSentence = false;
       this.pronunAnswer = '';
       this.meaningAnswer = '';
@@ -81,10 +85,12 @@ export default {
       this.quizzing = true;
     },
     nextWord () {
+      // goes to next word
       this.resetAnswers();
       this.wordIndex++;
     },
     finishQuiz () {
+      // emits event to exit quiz mode, resets everything for next quiz
       this.$emit ('quizDone');
       this.wordIndex = 0;
       this.score = 0;
@@ -93,6 +99,7 @@ export default {
     }
   },
   mounted () {
+    // makes sure that everything is reset properly at the start of the quiz
     this.wordIndex = 0;
     this.resetAnswers();
   }
@@ -107,7 +114,7 @@ export default {
   left: 14px;
   bottom: 14px;
   font-size: .9em;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .quizbox {
@@ -151,7 +158,7 @@ export default {
 }
 
 #final-score {
-  margin-top: 20%;
+  margin-top: 18%;
   padding: 0px 25px;
 }
 

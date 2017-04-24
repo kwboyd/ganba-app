@@ -11,7 +11,7 @@ class VocabController extends Controller
 {
       public function index () {
         // GET /vocabs
-        // list
+        // list all vocabs
         $vocabs = Vocab::all();
         return Response::json($vocabs);
       }
@@ -23,6 +23,7 @@ class VocabController extends Controller
       }
       public function show ($id) {
         // GET /vocabs/$id
+        // show one specific vocab
         $vocab = Vocab::find($id);
         return Response::json($vocab);
       }
@@ -35,6 +36,7 @@ class VocabController extends Controller
       }
       public function destroy ($id){
         // DELETE /vocabs/$id
+        // deletes vocab at id
         $vocab = Vocab::find($id);
         $vocab->delete();
         return Response::json(['deleted' => true]);

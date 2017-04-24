@@ -1,6 +1,8 @@
 <template lang="html">
   <div class="intro-text">
     <h3>Let's begin! 始めましょう！</h3>
+    <p>This is an app made to help intermediate to advanced Japanese language learners keep track of
+       and memorize vocabulary through quizzes on pronunciations and meanings. To get started:</p>
     <div class="instructions">
       <p>1. Add some words to your deck to study.</p>
       <p>2. Add cards you want to be quizzed on to your quiz set using the <i class="fa fa-plus-circle" aria-hidden="true"></i>
@@ -20,18 +22,23 @@ export default {
 
 .intro-text {
   h3 {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     text-align: left;
+  }
+  p {
+    line-height: 1.4;
+    padding-right: 25px;
   }
 }
 
 .instructions {
-  margin-top: 15px;
+  margin-top: 18px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   p {
-    width: 22%;
+    width: 27%;
+    font-weight: 700;
   }
 }
 

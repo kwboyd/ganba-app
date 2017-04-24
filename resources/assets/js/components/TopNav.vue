@@ -6,6 +6,7 @@
         <a href="http://www.kwboyd.com" alt="Kate Boyd Portfolio">Creator</a>
         <a>Styleguide</a>
         <a>Documentation</a>
+        <a>Credits</a>
         <a href="https://github.com/kwboyd/ganba-app" alt="GitHub">GitHub</a>
       </nav>
     </div>
@@ -16,6 +17,7 @@
 export default {
   methods: {
     returnHome () {
+      // emits event to send user to home page, exit quiz mode
       this.$emit('homeClicked');
     }
   }
@@ -42,28 +44,17 @@ header {
   padding-top: 10px;
   justify-content: space-between;
 }
-h1 {
-  margin-left: 20px;
-  font-family: $header-font;
-  color: $dark-gray;
-  font-weight: 400;
-  display: flex;
-  align-items: baseline;
-}
 #description {
   font-size: .5em;
   margin-left: 1.5em;
 }
-#title {
-  font-family: $header-font;
-  font-size: 1.1em;
-}
+
 nav{
-  width: 300px;
+  width: 360px;
   display: flex;
   justify-content: space-between;
   a {
-    font-family: $body-font;
+    font-family: $header-font;
     font-size: .7em;
     text-transform: uppercase;
     &:hover {
@@ -71,7 +62,7 @@ nav{
     }
   }
 }
-@media screen and (max-width: 769px) {
+@media screen and (max-width: 900px) {
   header {
     height: 85px;
   }
@@ -83,7 +74,7 @@ nav{
     margin-right: auto;
   }
   nav {
-    width: 60%;
+    width: 90%;
     margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
@@ -119,9 +110,6 @@ nav{
 @media screen and (max-width: 370px) {
   #description {
     font-size: .4em;
-  }
-  nav{
-    width: 250px;
   }
 }
 </style>

@@ -8,6 +8,7 @@ class CreateInitialVocabsTable extends Migration
 {
   public function up()
     {
+      // creates table
         Schema::create('vocabs', function(Blueprint $table) {
           $table->increments('id');
           $table->string('word')->default('');
@@ -20,6 +21,7 @@ class CreateInitialVocabsTable extends Migration
 
  public function down()
     {
+      // removes table if it exists
         Schema::dropIfExists('vocabs');
     }
 }

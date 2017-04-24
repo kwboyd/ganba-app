@@ -15,6 +15,7 @@ export default {
   ],
   methods: {
     startQuiz () {
+      // emits event to enter quiz mode
       this.$emit('beginQuiz');
     }
   }
@@ -46,6 +47,7 @@ export default {
     color: white;
     font-weight: 400;
     font-size: 1.3em;
+    font-family: $header-font;
     display: inline-block;
   }
   .inactive {

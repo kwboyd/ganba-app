@@ -67,18 +67,21 @@ export default {
 
   methods: {
     addVocab () {
+      // emits event that selected vocab should be added to quiz array, sets added to true
       console.log('Vocab -> add (for quiz)');
       this.$emit('wordAdded', this.vocab);
       this.addedQuiz = true;
     },
 
     removeVocab () {
+      // emits event that selected vocab should be removed from quiz array, sets added to false
       console.log('Vocab -> removeVocab');
       this.$emit('wordRemoved', this.vocab);
       this.addedQuiz = false;
     },
 
     remove () {
+      // removes selected vocab from server
       console.log('Vocab -> remove');
       this.loading = true;
       axios.delete(`/vocabs/${this.vocab.id}`)
@@ -94,6 +97,7 @@ export default {
     },
 
     save () {
+      // sends changes to updated vocabulary to server
       console.log('Vocab -> save');
       axios.put(`/vocabs/${this.vocab.id}`, {
           word: this.word,
@@ -114,11 +118,11 @@ export default {
         })
         .catch((error) => {
           console.log('Vocab -> save error');
-          //show the user that it couldn't be updated
         });
     },
 
     cancel () {
+      // resets edited vocab back to original
       console.log('Vocab -> cancel');
       this.word = this.vocab.word,
       this.pronunciation = this.vocab.pronunciation,

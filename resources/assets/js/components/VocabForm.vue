@@ -47,6 +47,7 @@ export default {
 
   methods: {
     create () {
+      // makes sure there isn't already a request in process, sets loading to true, calls request
       console.log('VocabForm -> create');
       if (this.loading) {
         alert('Request already in process.');
@@ -57,6 +58,7 @@ export default {
     },
 
     sendRequest () {
+      // sends a newly created vocab to the server
       axios.post('/vocabs', {
         word: this.word,
         pronunciation: this.pronunciation,
@@ -72,11 +74,11 @@ export default {
       })
       .catch((error) => {
         console.error('VocabForm -> sendRequest error');
-        // show an error message
       });
     },
 
     reset () {
+      // resets vocab form to empty
       this.word = '';
       this.pronunciation = '';
       this.meaning = '';

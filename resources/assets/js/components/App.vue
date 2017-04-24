@@ -59,13 +59,16 @@ export default {
   },
   mounted () {
     this.fetch();
+    // fetches data from server when app loads
   },
 
   computed: {
     reverseVocabs: function() {
       return this.vocabs.reverse();
+      // reverses order of the vocab array so new ones show up in the first spot
     },
     quizReady: function() {
+      // checks if there is at least one word in the quiz array, disables start quiz button if not
       if (this.quizVocabs.length > 0) {
         return true
       } else {
@@ -85,16 +88,20 @@ export default {
       // this.Imeinput = this.kanaime;
     },
     addQuizWord(vocab) {
+      // adds selected vocab to quizVocabs
       this.quizVocabs.push(vocab);
     },
     goHome() {
+      // exits quiz mode when home link clicked
       this.quizMode = false;
     },
     removeQuizWord(vocab) {
+      // removes selected vocab from quizVocabs
       var wordPosition = this.quizVocabs.indexOf(vocab);
       this.quizVocabs.splice(wordPosition, 1);
     },
     fetch () {
+      // fetches all of the vocabs from server
       console.log('App -> fetch');
       axios.get('/vocabs')
         .then((response) => {
@@ -109,7 +116,7 @@ export default {
     },
 
     update (data) {
-      // this.fetch();
+      // updates the vocabs array after a change
       var i = this.vocabs.indexOf(data.vocab);
       for (var d in data) {
         var vocab = this.vocabs[i];
@@ -119,19 +126,23 @@ export default {
     },
 
     remove (vocab) {
+      // removes vocab from vocabs array after it's been deleted
       let currentVocab = vocab;
       let currentIndex = this.vocabs.indexOf(currentVocab);
       this.vocabs.splice(currentIndex, 1);
       let quizVocabIndex = this.quizVocabs.indexOf(currentVocab);
       if (quizVocabIndex > -1) {
+        // checks if the removed vocab was added to the quiz array, removes it from that array
         this.quizVocabs.splice(quizVocabIndex, 1);
       }
 
     },
     quizModeStart () {
+      // launch quiz mode
       this.quizMode = true;
     },
     finishQuiz () {
+      // exit quiz mode
       this.quizMode = false;
     }
 
@@ -159,15 +170,23 @@ a:hover {
   text-decoration: none;
 }
 
+h1 {
+  font-family: $logo-font;
+}
+
 h1, h2, h3, h4, h5, h6, p, label, a {
   color: $dark-gray;
 }
 
-h2, h3, h4, h5, h6, p, label {
+h2, h3, h4, h5, h6 {
+  font-family: $header-font;
+}
+
+p, label {
   font-family: $body-font;
 }
 
-h2, h3, h5, h6 {
+h2, h5, h6 {
   font-weight: 500;
 }
 
@@ -181,6 +200,7 @@ h3 {
   font-size: 3em;
   text-align: center;
   margin-top: 30px;
+  font-weight: 700;
 }
 
 h4 {
@@ -217,6 +237,16 @@ textarea {
 
 .inline {
   display: inline;
+}
+
+h1 {
+  margin-left: 20px;
+  font-family: $logo-font;
+  color: $dark-gray;
+  font-weight: 400;
+  display: flex;
+  align-items: baseline;
+  font-size: 2.1em;
 }
 
 .container {

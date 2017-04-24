@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="filler">
   </div>
+  <!-- fills in the grid -->
 </template>
 
 <script>
