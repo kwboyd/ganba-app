@@ -151,7 +151,8 @@ export default {
 }
 
 #final-score {
-  margin-top: 15%;
+  margin-top: 20%;
+  padding: 0px 25px;
 }
 
 #pronun-group {

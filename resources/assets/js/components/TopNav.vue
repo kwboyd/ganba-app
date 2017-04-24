@@ -116,4 +116,12 @@ nav{
     font-size: 13px;
   }
 }
+@media screen and (max-width: 370px) {
+  #description {
+    font-size: .4em;
+  }
+  nav{
+    width: 250px;
+  }
+}
 </style>

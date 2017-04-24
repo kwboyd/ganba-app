@@ -248,4 +248,15 @@ export default {
   }
 }
 
+@media screen and (max-width: 370px) {
+  .card {
+    .fa-plus-circle, .fa-minus-circle {
+    left: 230px;
+    }
+     .fa-pencil {
+       left: 235px
+     }
+  }
+}
+
 </style>

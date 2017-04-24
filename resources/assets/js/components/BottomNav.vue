@@ -81,11 +81,32 @@ export default {
   .footer-wrapper {
     padding-top: 15px;
     p {
-      font-size: 1.1em;
+      font-size: 1em;
     }
   }
   #start-button {
-    font-size: 1.4em;
+    font-size: 1.3em;
+    margin-top: -9px;
+    margin-right: 8px;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .footer-wrapper {
+    p {
+      font-size: .9em;
+    }
+  }
+  #start-button {
+    font-size: 1.1em;
+    margin-top: -7px;
+    margin-right: 5px;
+  }
+  .footer {
+    height: 40px;
+  }
+  .footer-wrapper {
+    padding-top: 12px;
   }
 }
 

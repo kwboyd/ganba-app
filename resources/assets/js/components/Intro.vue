@@ -43,4 +43,11 @@ export default {
     }
   }
 }
+@media screen and (max-width: 370px) {
+  .intro-text {
+    h3 {
+      font-size: 2em;
+    }
+  }
+}
 </style>
