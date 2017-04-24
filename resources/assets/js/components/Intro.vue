@@ -4,10 +4,12 @@
     <p>This is an app made to help intermediate to advanced Japanese language learners keep track of
        and memorize vocabulary through quizzes on pronunciations and meanings. To get started:</p>
     <div class="instructions">
-      <p>1. Add some words to your deck to study.</p>
-      <p>2. Add cards you want to be quizzed on to your quiz set using the <i class="fa fa-plus-circle" aria-hidden="true"></i>
-  icon.</p>
-      <p>3. Click the ‘start quiz’ button in the footer.</p>
+      <ol>
+      <li>Add some words to your deck to study.</li>
+      <li>Add cards you want to be quizzed on to your quiz set using the <i class="fa fa-plus-circle" aria-hidden="true"></i>
+  icon.</li>
+      <li>Click the ‘start quiz’ button in the footer.</li>
+    </ol>
     </div>
 </div>
 </template>
@@ -22,7 +24,7 @@ export default {
 
 .intro-text {
   h3 {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-align: left;
   }
   p {
@@ -32,24 +34,9 @@ export default {
 }
 
 .instructions {
-  margin-top: 18px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  p {
-    width: 27%;
-    font-weight: 700;
-  }
+  margin-top: 15px;
 }
 
-@media screen and (max-width: 650px) {
-  .instructions {
-    p {
-      width: 100%;
-      margin-bottom: 10px;
-    }
-  }
-}
 @media screen and (max-width: 370px) {
   .intro-text {
     h3 {

@@ -182,7 +182,7 @@ h2, h3, h4, h5, h6 {
   font-family: $header-font;
 }
 
-p, label {
+p, label, ol {
   font-family: $body-font;
 }
 
@@ -200,7 +200,7 @@ h3 {
   font-size: 3em;
   text-align: center;
   margin-top: 30px;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 h4 {
@@ -217,7 +217,7 @@ h5 {
 }
 
 h6 {
-  margin-top: 45px;
+  margin-top: 35px;
   margin-bottom: 15px;
   font-size: 15pt;
 }
@@ -225,6 +225,16 @@ h6 {
 p {
   font-size: 10.5pt;
   font-weight: 400;
+}
+
+ol {
+  margin-left: 0;
+  padding-left: 15px;
+  font-size: .9em;
+  font-weight: 700;
+  li {
+    margin-top: 3px;
+  }
 }
 
 textarea {
@@ -258,7 +268,7 @@ h1 {
   color: $teal;
   background-color: white;
   height: .8em;
-  font-size: 1.5em;
+  font-size: 1.2em;
   border-radius: 100%;
   margin: auto 2px;
 }
