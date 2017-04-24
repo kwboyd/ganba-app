@@ -95,6 +95,7 @@ export default {
 }
 
 #form-top-line {
+  margin-top: 15px;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -119,7 +120,8 @@ export default {
   width: 100%;
   textarea {
     width: 100%;
-    min-height: 40px;
+    min-height: 30px;
+    padding-top: 9px;
   }
 }
 

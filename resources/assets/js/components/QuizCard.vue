@@ -4,20 +4,21 @@
     <h6>Score: {{score}}/{{quizVocabs.length * 2}}</h6>
   <div class="quiz-card">
       <div v-if="!results">
+        <p id="word-count">Word: {{this.wordIndex}}/{{quizVocabs.length}}</p>
         <p class="quiz-word">{{quizVocabs[this.wordIndex].word}}</p>
-        <button class="center" id="example-button" @click.prevent="showSentence = !showSentence">{{!showSentence ? 'Show example sentence' : 'Hide example sentence'}}</button>
+        <button class="center info-button button-large" id="example-button" @click.prevent="showSentence = !showSentence">{{!showSentence ? 'Show example sentence' : 'Hide example sentence'}}</button>
         <p v-show="showSentence" class="quiz-sentence text-center">{{quizVocabs[this.wordIndex].sentence}}</p>
         <div class="quiz-group" id="pronun-group">
           <label for="quizpronun">Pronunciation:</label>
           <input :disabled="!quizzing" maxlength="16" id="quizpronun" type="text" v-model="pronunAnswer" />
-          <p class="result" v-if="pronunResult == 'correct'">Correct!</p>
-          <p class="result" v-if="pronunResult == 'incorrect'">Incorrect! Correct answer: {{quizVocabs[this.wordIndex].pronunciation}}</p>
+          <p class="result correct" v-if="pronunResult == 'correct'">Correct!</p>
+          <p class="result incorrect" v-if="pronunResult == 'incorrect'">Incorrect! Correct answer: {{quizVocabs[this.wordIndex].pronunciation}}</p>
         </div>
         <div class="quiz-group">
           <label for="quizmeaning">Meaning:</label>
           <input :disabled="!quizzing" maxlength="40" id="quizmeaning" type="text" v-model="meaningAnswer" />
-          <p class="result" v-if="meaningResult == 'correct'">Correct!</p>
-          <p class="result" v-if="meaningResult == 'incorrect'">Incorrect! Correct answer: {{quizVocabs[this.wordIndex].meaning}}</p>
+          <p class="result correct" v-if="meaningResult == 'correct'">Correct!</span></p>
+          <p class="result incorrect" v-if="meaningResult == 'incorrect'">Incorrect! Correct answer: {{quizVocabs[this.wordIndex].meaning}}</p>
         </div>
           <button v-if="quizzing" @click.prevent="checkAnswers" class="primary-button submit-button">Submit</button>
           <transition name="fade">
@@ -29,8 +30,8 @@
     </div>
     <transition name="fade">
     <div v-if="results">
-      <h3>Final score: {{score}}/{{quizVocabs.length * 2}}</h3>
-      <button @click.prevent="finishQuiz" class="primary">End Quiz</button>
+      <h2 id="final-score">Final score: {{score}}/{{quizVocabs.length * 2}}</h2>
+      <button @click.prevent="finishQuiz" class="primary-button button-large center">End Quiz</button>
     </div>
   </transition>
   </div>
@@ -99,6 +100,15 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../sass/_variables.scss';
+
+#word-count {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  font-size: .9em;
+  font-weight: 500;
+}
 
 .quizbox {
   h2 {
@@ -113,13 +123,24 @@ export default {
 
 #example-button {
   margin-top: 10px;
-  margin-bottom: 6px;
-  font-size: .8em;
+  margin-bottom: 10px;
+}
+
+.correct, .incorrect {
+  font-weight: 500;
 }
 
 .quiz-sentence {
   font-size: 1.1em;
   margin-bottom: 10px;
+}
+
+.correct {
+  color: $dark-teal;
+}
+
+.incorrect {
+  color: $dark-red;
 }
 
 .submit-button {
@@ -128,38 +149,50 @@ export default {
   display: block;
   margin-top: 25px;
 }
-.continue-button {
+
+#final-score {
+  margin-top: 15%;
 }
 
 #pronun-group {
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 .quiz-group {
   width: 70%;
   margin-left: auto;
   margin-right: auto;
+  label, input {
+    display: inline-block;
+  }
 }
 .button-group {
   float: right;
   margin-right: 15%;
-  margin-top: 15px;
+  margin-top: 0px;
 }
 .result {
   margin-top: 3px;
 }
 .quiz-card {
+  margin-bottom: 30px;
   position: relative;
   margin-left: auto;
   margin-right: auto;
   width: 80vw;
-  height: 425px;
+  height: 435px;
   background-color: white;
   border: 1px solid #aaaaaa;
   box-shadow: 2px 2px 10px #868686;
 }
 .quiz-word {
   text-align: center;
-  padding-top: 20px;
+  padding-top: 15px;
   font-size: 4em;
+}
+
+@media screen and (max-width: 769px) {
+  #word-count {
+    font-size: .9em;
+  }
 }
 </style>

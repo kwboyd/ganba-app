@@ -226,10 +226,10 @@ export default {
   position: absolute;
   left: 269px;
   margin-top: 173px;
-  color: #217EBC;
+  color: $blue;
   font-size: 1.4em;
   &:hover {
-    color: #1b6494;
+    color: $dark-blue;
   }
 }
 

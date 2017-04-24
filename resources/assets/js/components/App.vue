@@ -9,6 +9,7 @@
       <VocabForm  @created="fetch"></VocabForm>
         <h6>Your Deck:</h6>
       <div class="deck">
+          <p v-if="this.vocabs.length == 0">You don't have any words in your deck yet.</p>
           <Vocab v-for="(vocab, index) in reverseVocabs" :key="vocab.id"
           :vocab="vocab" @updated="update" @wordRemoved="removeQuizWord"
           @wordAdded="addQuizWord" @deleted="remove"></Vocab>
@@ -226,18 +227,18 @@ textarea {
 .fa-plus-circle {
   color: $teal;
   background-color: white;
-  height: 1em;
+  height: .8em;
   font-size: 1.5em;
-  border-radius: 50%;
+  border-radius: 100%;
   margin: auto 2px;
 }
 
-.primary-button, .danger-button {
+.primary-button, .danger-button, .info-button {
   height: 35px;
   width: 100px;
   color: white;
   border-radius: 7px;
-  border: 1px solid #747474;
+  // border: 1px solid #747474;
   margin-top: 10px;
   -webkit-appearance: none;
   font-size: 7.5pt;
@@ -249,6 +250,7 @@ textarea {
 
 .primary-button {
   background-color: $teal;
+  border: 1px solid $dark-teal;
   &:hover {
     background-color: $dark-teal;
   }
@@ -256,6 +258,7 @@ textarea {
 
 .danger-button {
   background-color: $red;
+  border: 1px solid $dark-red;
   &:hover {
     background-color: $dark-red;
   }
@@ -287,6 +290,21 @@ textarea {
 /* .slide-fade-leave-active for <2.1.8 */ {
   transform: translateX(10px);
   opacity: 0;
+}
+
+.info-button {
+  background-color: $blue;
+  border: 1px solid $dark-blue;
+  &:hover {
+    background-color: $dark-blue;
+  }
+}
+
+.button-large {
+  width: 200px;
+  height: 25px;
+  font-size: .7em;
+  border-radius: 5px;
 }
 
 .deck {

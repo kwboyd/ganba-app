@@ -59,12 +59,12 @@ h1 {
   font-size: 1.1em;
 }
 nav{
-  width: 280px;
+  width: 300px;
   display: flex;
   justify-content: space-between;
   a {
-    font-family: $header-font;
-    font-size: .8em;
+    font-family: $body-font;
+    font-size: .7em;
     text-transform: uppercase;
     &:hover {
       color: #52A896;
