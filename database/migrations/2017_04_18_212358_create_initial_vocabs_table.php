@@ -11,10 +11,10 @@ class CreateInitialVocabsTable extends Migration
       // creates table
         Schema::create('vocabs', function(Blueprint $table) {
           $table->increments('id');
-          $table->string('word')->default('');
-          $table->string('pronunciation')->default('');
-          $table->string('meaning')->default('');
-          $table->string('sentence')->default('');
+          $table->string('word')->default('')->nullable();
+          $table->string('pronunciation')->default('')->nullable();
+          $table->string('meaning')->default('')->nullable();
+          $table->string('sentence')->default('')->nullable();
           $table->timestamps();
         });
     }
