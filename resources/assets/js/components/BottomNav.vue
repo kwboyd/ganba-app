@@ -50,10 +50,6 @@ export default {
     font-family: $header-font;
     display: inline-block;
   }
-  .inactive {
-    cursor: default;
-    color: #c0d8d1;
-  }
 }
 
 #start-button {
@@ -72,6 +68,14 @@ export default {
   }
   &:hover {
     color: #dedede;
+  }
+}
+
+.inactive {
+  cursor: default;
+  color: #c0d8d1;
+  &:hover {
+    color: #c0d8d1!important;
   }
 }
 

@@ -23,6 +23,7 @@
     <button class="primary-button" @click="create" :disabled="loading">Add word</button>
     <Loader v-show="loading"></Loader>
   </div>
+
   </div>
 </template>
 
@@ -45,6 +46,11 @@ export default {
     }
   },
 
+  mounted() {
+    var pronunInput = document.getElementById('pronunciation');
+    wanakana.bind(pronunInput);
+  },
+
   methods: {
     create () {
       // makes sure there isn't already a request in process, sets loading to true, calls request
@@ -53,9 +59,15 @@ export default {
         alert('Request already in process.');
         return false;
       }
+      this.pronunciation = wanakana.toKana(this.pronunciation);
       this.loading = true;
       this.sendRequest();
     },
+
+    // wanakanaTrans() {
+    //   var pronunInput = document.getElementById('pronunciation');
+    //   wanakana.bind(pronunInput);
+    // },
 
     sendRequest () {
       // sends a newly created vocab to the server

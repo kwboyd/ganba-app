@@ -174,7 +174,7 @@ h1 {
   font-family: $logo-font;
 }
 
-h1, h2, h3, h4, h5, h6, p, label, a {
+h1, h2, h3, h4, h5, h6, p, label, a, ol, li {
   color: $dark-gray;
 }
 
@@ -252,7 +252,6 @@ textarea {
 h1 {
   margin-left: 20px;
   font-family: $logo-font;
-  color: $dark-gray;
   font-weight: 400;
   display: flex;
   align-items: baseline;

@@ -1,11 +1,11 @@
 <template lang="html">
   <header>
     <div class="nav-wrapper">
-      <h1><a @click="returnHome" href="#"><span id="title">Ganba!</span></a><span id="description">Flashcard Quizzes for Advanced Japanese Learners</span></h1>
+      <h1><a @click="returnHome" href="#"><span id="title">Ganba!</span></a><span id="description">Flashcard Quizzes for Japanese Learners</span></h1>
       <nav>
         <a href="http://www.kwboyd.com" alt="Kate Boyd Portfolio">Creator</a>
         <a>Styleguide</a>
-        <a>Documentation</a>
+        <a href="https://kwboyd.gitbooks.io/ganba/content/" alt="Documentation">Documentation</a>
         <a>Credits</a>
         <a href="https://github.com/kwboyd/ganba-app" alt="GitHub">GitHub</a>
       </nav>
@@ -107,9 +107,9 @@ nav{
     font-size: 13px;
   }
 }
-@media screen and (max-width: 370px) {
+@media screen and (max-width: 400px) {
   #description {
-    font-size: .4em;
+    font-size: .5em;
   }
 }
 </style>

@@ -35,6 +35,7 @@
     </div>
   </transition>
   </div>
+  <button id="quit-button" class="danger-button button-large">Quit quiz</button>
 </div>
 </template>
 
@@ -118,6 +119,7 @@ export default {
 }
 
 .quizbox {
+  position: relative;
   h2 {
     margin-bottom: 5px;
   }
@@ -182,7 +184,7 @@ export default {
   margin-top: 3px;
 }
 .quiz-card {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   position: relative;
   margin-left: auto;
   margin-right: auto;
@@ -196,6 +198,13 @@ export default {
   text-align: center;
   padding-top: 15px;
   font-size: 4em;
+}
+
+#quit-button {
+   margin-bottom: 15px;
+   margin-top: 5px;
+   margin-right: 10vw;
+  float: right;
 }
 
 @media screen and (max-width: 769px) {

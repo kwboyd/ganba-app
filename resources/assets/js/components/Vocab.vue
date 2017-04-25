@@ -10,16 +10,12 @@
         <a class="tool" href="#" @click.prevent="editing = true" v-show="!editing">
           <i class="fa fa-pencil" aria-hidden="true"></i>
         </a>
-        <transition name="fade">
           <a class="tool" href="#" @click.prevent="addVocab" v-if="!this.addedQuiz">
             <i class="fa fa-plus-circle" aria-hidden="true"></i>
           </a>
-        </transition>
-        <transition name="fade">
           <a class="tool" href="#" @click.prevent="removeVocab" v-if="this.addedQuiz">
             <i class="fa fa-minus-circle" aria-hidden="true"></i>
           </a>
-        </transition>
         <p class="deck-word">{{ vocab.word }}</p>
         <p class="deck-pronunciation">{{ vocab.pronunciation }}</p>
         <p class="deck-meaning">{{ vocab.meaning }}</p>
