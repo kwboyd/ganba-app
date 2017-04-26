@@ -8,9 +8,9 @@
         <p class="quiz-word">{{quizVocabs[this.wordIndex].word}}</p>
         <button class="center info-button button-large" id="example-button" @click.prevent="showSentence = !showSentence">{{!showSentence ? 'Show example sentence' : 'Hide example sentence'}}</button>
         <p v-show="showSentence" class="quiz-sentence text-center">{{quizVocabs[this.wordIndex].sentence}}</p>
-        <div class="quiz-group" id="pronun-group">
+        <div v-show="quizVocabs[this.wordIndex].pronunciation != null" class="quiz-group" id="pronun-group">
           <label for="quizpronun">Pronunciation:</label>
-          <input :disabled="!quizzing" maxlength="16" id="quizpronun" type="text" v-model="pronunAnswer" />
+          <input ref="pronunQuizInput" @blur="toKana" :disabled="!quizzing" maxlength="16" id="quizpronun" type="text" v-model="pronunAnswer" />
           <p class="result correct" v-if="pronunResult == 'correct'">Correct!</p>
           <p class="result incorrect" v-if="pronunResult == 'incorrect'">Incorrect! Correct answer: {{quizVocabs[this.wordIndex].pronunciation}}</p>
         </div>
@@ -35,7 +35,7 @@
     </div>
   </transition>
   </div>
-  <button id="quit-button" class="danger-button button-large">Quit quiz</button>
+  <button @click="finishQuiz" id="quit-button" class="danger-button button-large">Quit quiz</button>
 </div>
 </template>
 
@@ -51,7 +51,8 @@ export default {
       pronunResult: '',
       quizzing: true,
       score: 0,
-      results: false
+      results: false,
+      quizPronunInput: ''
     }
   },
   props: [
@@ -61,6 +62,7 @@ export default {
     checkAnswers() {
       // turns off active quizzing mode
       this.quizzing = false;
+      this.pronunAnswer = wanakana.toKana(this.pronunAnswer);
       if (this.pronunAnswer == this.quizVocabs[this.wordIndex].pronunciation) {
         // checks if pronunciation input is correct
         this.pronunResult = 'correct';
@@ -87,8 +89,14 @@ export default {
     },
     nextWord () {
       // goes to next word
+      if (this.quizVocabs[this.wordIndex].pronunciation != null) {
+        wanakana.unbind(this.$refs.pronunQuizInput);
+      }
       this.resetAnswers();
       this.wordIndex++;
+      if (this.quizVocabs[this.wordIndex].pronunciation != null) {
+        wanakana.bind(this.$refs.pronunQuizInput, {IMEMode: true});
+      }
     },
     finishQuiz () {
       // emits event to exit quiz mode, resets everything for next quiz
@@ -97,12 +105,19 @@ export default {
       this.score = 0;
       this.results = false;
       this.resetAnswers();
+    },
+    toKana () {
+      this.pronunAnswer = wanakana.toKana(this.pronunAnswer);
     }
   },
   mounted () {
     // makes sure that everything is reset properly at the start of the quiz
     this.wordIndex = 0;
     this.resetAnswers();
+
+    if (this.quizVocabs[this.wordIndex].pronunciation != null) {
+      wanakana.bind(this.$refs.pronunQuizInput, {IMEMode: true});
+    }
   }
 }
 </script>

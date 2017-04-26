@@ -8,7 +8,7 @@
       </div>
       <div class="form-group short-label">
         <label for="pronunciation">Pronunciation (if applicable): </label>
-        <input maxlength="16" placeholder="Max length: 16 char." id="pronunciation" type="text" v-model="pronunciation" />
+        <input @blur="toKana" maxlength="16" placeholder="Max length: 16 char." id="pronunciation" type="text" v-model="pronunciation" />
       </div>
       <div class="form-group meaning-group">
         <label for="meaning">Meaning: </label>
@@ -23,7 +23,8 @@
     <button class="primary-button" @click="create" :disabled="loading">Add word</button>
     <Loader v-show="loading"></Loader>
   </div>
-
+  <p>*For convenience, pronunciation will be auto-transliterated into furigana, so you can type in furigana or romaji.
+    In romaji mode, type in CAPITAL LETTERS for katakana. During quizzes, you can input pronunciation in either furigana or romaji and it will be transliterated as well.</p>
   </div>
 </template>
 
@@ -48,7 +49,7 @@ export default {
 
   mounted() {
     var pronunInput = document.getElementById('pronunciation');
-    wanakana.bind(pronunInput);
+    wanakana.bind(pronunInput, {IMEMode: true});
   },
 
   methods: {
@@ -87,6 +88,9 @@ export default {
       .catch((error) => {
         console.error('VocabForm -> sendRequest error');
       });
+    },
+    toKana () {
+      this.pronunciation = wanakana.toKana(this.pronunciation);
     },
 
     reset () {
