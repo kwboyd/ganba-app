@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="quizbox">
     <h2>Quiz Mode</h2>
-    <h6>Score: {{score}}/{{quizVocabs.length * 2}}</h6>
+    <h6>Score: {{score}}/{{scoreTotal}}</h6>
   <div class="quiz-card">
       <div v-if="!results">
         <p id="word-count">Word: {{this.wordIndex}}/{{quizVocabs.length}}</p>
@@ -54,6 +54,7 @@ export default {
       pronunResult: '',
       quizzing: true,
       score: 0,
+      scoreTotal: 0,
       results: false,
       quizPronunInput: ''
     }
@@ -70,13 +71,16 @@ export default {
       this.pronunAnswer = wanakana.toKana(this.pronunAnswer);
       // capitalizes the meaning so it matches the original input
       this.meaningAnswer = this.meaningAnswer.toUpperCase();
-      if (this.pronunAnswer == this.quizVocabs[this.wordIndex].pronunciation) {
-        // checks if pronunciation input is correct
-        this.pronunResult = 'correct';
-        this.score++;
-      } else {
-        this.pronunResult = 'incorrect';
-      };
+      if (this.quizVocabs[this.wordIndex].pronunciation != null) {
+        // checks if there is pronunciation for the word
+          if (this.pronunAnswer == this.quizVocabs[this.wordIndex].pronunciation) {
+            // checks if pronunciation input is correct
+            this.pronunResult = 'correct';
+            this.score++;
+          } else {
+            this.pronunResult = 'incorrect';
+          };
+      }
       if (this.meaningAnswer == this.quizVocabs[this.wordIndex].meaning) {
         // checks if meaning input is correct
         this.meaningResult = 'correct';
@@ -132,6 +136,15 @@ export default {
       // checks if the first word has pronunciation
       // if so, binds wanakana to it
       wanakana.bind(this.$refs.pronunQuizInput, {IMEMode: true});
+    }
+    // sets initial top possible score to length to account for meanings
+    this.scoreTotal = this.quizVocabs.length;
+    for (let w = 0; w < this.quizVocabs.length; w++) {
+      // loops through each quiz word
+      if (this.quizVocabs[w].pronunciation != null) {
+        // if there is pronunciation, adds another point to the possible score
+        this.scoreTotal++;
+      }
     }
   }
 }
