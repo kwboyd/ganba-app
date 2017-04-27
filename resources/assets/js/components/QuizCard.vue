@@ -30,7 +30,7 @@
     </div>
     <transition name="fade">
     <div v-if="results">
-      <h2 id="final-score">Final score: {{score}}/{{quizVocabs.length * 2}}</h2>
+      <h2 id="final-score">Final score: {{score}}/{{scoreTotal}}</h2>
       <button @click.prevent="finishQuiz" class="primary-button button-large center">End Quiz</button>
     </div>
   </transition>
