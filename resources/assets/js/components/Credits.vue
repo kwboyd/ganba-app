@@ -8,6 +8,7 @@
     <li>Created using <a target="_blank" class="outside-link" alt="Laravel" href="https://laravel.com/">Laravel</a> and <a target="_blank" class="outside-link" alt="Vue.js" href="https://vuejs.org/">Vue.js</a></li>
     <li>Loader icon from <a target="_blank" class="outside-link" alt="Loading.io" href="https://loading.io/">Loading.io</a></li>
     <li>Japanese transliteration from <a target="_blank" class="outside-link" alt="Wanakana.js" href="http://wanakana.com/">Wanakana.js</a></li>
+    <li>Input and form stylings from <a target="_blank" class="outside-link" alt="Skeleton CSS" href="http://getskeleton.com/">Skeleton CSS</a></li>
   </ul>
 </div>
 </div>

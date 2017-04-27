@@ -15,6 +15,7 @@ require('./bootstrap');
 
 Vue.component('App', require('./components/App.vue'));
 Vue.component('Credits', require('./components/Credits.vue'));
+Vue.component('Styles', require('./components/Styles.vue'));
 
 const app = new Vue({
     el: '#app',
@@ -24,4 +25,9 @@ const app = new Vue({
 const credits = new Vue({
     el: '#credits',
     template: '<Credits />'
+});
+
+const styles = new Vue({
+    el: '#styles',
+    template: '<Styles />'
 });

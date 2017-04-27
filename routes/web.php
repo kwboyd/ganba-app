@@ -28,7 +28,10 @@ Route::get('/', function () {
   return view('app');
 });
 
-
 Route::get('/credits', function () {
   return view('credits');
+});
+
+Route::get('/styles', function () {
+  return view('styles');
 });

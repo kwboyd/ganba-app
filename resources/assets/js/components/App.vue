@@ -1,7 +1,6 @@
 <template lang="html">
 <div>
   <TopNav @homeClicked="goHome"></TopNav>
-  <!-- <textarea v-model="imeInput" @input="kana()"></textarea> -->
   <transition-group name="fade" mode="out-in" tag="div">
   <div v-show="!quizMode"  key="1">
     <div class="container">
