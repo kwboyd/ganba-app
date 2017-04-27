@@ -6,7 +6,7 @@
       <div v-if="!results">
         <p id="word-count">Word: {{this.wordIndex}}/{{quizVocabs.length}}</p>
         <p class="quiz-word">{{quizVocabs[this.wordIndex].word}}</p>
-        <button class="center info-button button-large" id="example-button" @click.prevent="showSentence = !showSentence">{{!showSentence ? 'Show example sentence' : 'Hide example sentence'}}</button>
+        <button v-show="quizVocabs[this.wordIndex].sentence != null" class="center info-button button-large" id="example-button" @click.prevent="showSentence = !showSentence">{{!showSentence ? 'Show example sentence' : 'Hide example sentence'}}</button>
         <p v-show="showSentence" class="quiz-sentence text-center">{{quizVocabs[this.wordIndex].sentence}}</p>
         <div v-show="quizVocabs[this.wordIndex].pronunciation != null" class="quiz-group" id="pronun-group">
           <label for="quizpronun">Pronunciation:</label>
@@ -35,8 +35,10 @@
     </div>
   </transition>
   </div>
-  <p>*Pronunciation entered in romaji will be auto-transliterated into furigana. Use CAPS LOCK for katakana.</p>
-  <button @click="finishQuiz" id="quit-button" class="danger-button button-large">Quit quiz</button>
+  <div class="notes-box">
+    <p class="note">*Pronunciation entered in romaji will be auto-transliterated into furigana. Use CAPS LOCK for katakana.</p>
+    <button @click="finishQuiz" id="quit-button" class="danger-button button-large">Quit quiz</button>
+  </div>
 </div>
 </template>
 
@@ -66,6 +68,8 @@ export default {
       // changes pronunciation into furigana so it matches the database
       // necessary because wanakana will not transliterate the final syllable during typing
       this.pronunAnswer = wanakana.toKana(this.pronunAnswer);
+      // capitalizes the meaning so it matches the original input
+      this.meaningAnswer = this.meaningAnswer.toUpperCase();
       if (this.pronunAnswer == this.quizVocabs[this.wordIndex].pronunciation) {
         // checks if pronunciation input is correct
         this.pronunResult = 'correct';
@@ -142,6 +146,10 @@ export default {
   bottom: 14px;
   font-size: .9em;
   font-weight: 700;
+}
+
+#quizmeaning {
+    text-transform: uppercase;
 }
 
 .quizbox {
@@ -226,11 +234,25 @@ export default {
   font-size: 4em;
 }
 
+.notes-box {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  margin-right: 10vw;
+  margin-left: 10vw;
+  margin-bottom: 25px;
+  .note {
+    margin-top: 4px;
+    max-width: 60%;
+  }
+  button {
+    margin-left: 10px;
+  }
+}
+
 #quit-button {
    margin-bottom: 15px;
    margin-top: 5px;
-   margin-right: 10vw;
-  float: right;
 }
 
 @media screen and (max-width: 769px) {

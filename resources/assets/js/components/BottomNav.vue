@@ -2,7 +2,7 @@
   <div class="footer">
     <div class="footer-wrapper">
       <p>Current quiz: <span class="bold">{{quizVocabs.length}}</span> words</p>
-      <button :disabled="quizVocabs.length < 1" @click="startQuiz" :class="{inactive: !quizReady}" id="start-button">START QUIZ <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+      <button :disabled="quizVocabs.length < 1" @click="startQuiz" :class="{inactive: !quizReady}">START QUIZ <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
     </div>
   </div>
 </template>
@@ -50,32 +50,31 @@ export default {
     font-family: $header-font;
     display: inline-block;
   }
-}
-
-#start-button {
-  border: none;
-  background: none;
-  margin-right: 20px;
-  float: right;
-  font-weight: 700;
-  font-size: 1.6em;
-  margin-top: -.38em;
-  display: flex;
-  align-items: center;
-  i {
-    font-size: 1.5em;
-    margin-left: 8px;
+  button {
+    border: none;
+    background: none;
+    margin-right: 20px;
+    float: right;
+    font-weight: 700;
+    font-size: 1.6em;
+    margin-top: -.38em;
+    display: flex;
+    align-items: center;
+    i {
+      font-size: 1.5em;
+      margin-left: 8px;
+    }
+    &:hover {
+      color: #dedede;
+    }
   }
-  &:hover {
-    color: #dedede;
-  }
-}
 
-.inactive {
-  cursor: default;
-  color: #c0d8d1;
-  &:hover {
-    color: #c0d8d1!important;
+  .inactive {
+    cursor: default;
+    color: #c0d8d1;
+    &:hover {
+      color: #c0d8d1;
+    }
   }
 }
 

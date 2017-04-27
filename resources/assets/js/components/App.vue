@@ -249,6 +249,11 @@ textarea {
   display: inline;
 }
 
+.note {
+  margin-top: 15px;
+  font-size: .7em;
+}
+
 h1 {
   margin-left: 20px;
   font-family: $logo-font;
@@ -392,6 +397,9 @@ h1 {
     .card, .filler {
       margin-left: 0px;
     }
+  }
+  .note {
+    font-size: .6em;
   }
 }
 

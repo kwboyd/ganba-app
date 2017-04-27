@@ -4,26 +4,26 @@
     <div id="form-top-line">
       <div class="form-group short-label">
         <label for="word">Word:</label>
-        <input maxlength="7" placeholder="Max length: 7 char." id="word" type="text" v-model="word" />
+        <input maxlength="7" placeholder="Max Length: 7 Char." id="word" type="text" v-model="word" />
       </div>
       <div class="form-group short-label">
-        <label for="pronunciation">Pronunciation (if applicable): </label>
-        <input @blur="toKana" maxlength="16" placeholder="Max length: 16 char." id="pronunciation" type="text" v-model="pronunciation" />
+        <label for="pronunciation">Pronunciation (optional): </label>
+        <input @blur="toKana" maxlength="16" placeholder="Max Length: 16 Char." id="pronunciation" type="text" v-model="pronunciation" />
       </div>
       <div class="form-group meaning-group">
         <label for="meaning">Meaning: </label>
-        <input maxlength="40" placeholder="Max length: 40 char." id="meaning" type="text" v-model="meaning" />
+        <input maxlength="40" placeholder="Max Length: 40 Char." id="meaning" type="text" v-model="meaning" />
       </div>
     </div>
     <div class="form-group sentence-group">
-      <label for="sentence">Example sentence: </label>
-      <textarea maxlength="30" placeholder="Max length: 30 char." id="sentence" v-model="sentence"></textarea>
+      <label for="sentence">Example sentence (optional): </label>
+      <textarea maxlength="30" placeholder="Max Length: 30 Char." id="sentence" v-model="sentence"></textarea>
     </div>
     <div class="button-div">
     <button class="primary-button" @click="create" :disabled="loading">Add word</button>
     <Loader v-show="loading"></Loader>
   </div>
-  <p>*For convenience, pronunciation will be auto-transliterated into furigana, so you can type in furigana or romaji.
+  <p class="note">*For convenience, pronunciation will be auto-transliterated into furigana, so you can type in furigana or romaji.
     In romaji mode, type in CAPITAL LETTERS for katakana. During quizzes, you can input pronunciation in either furigana or romaji and it will be transliterated as well.</p>
   </div>
 </template>
@@ -60,15 +60,13 @@ export default {
         alert('Request already in process.');
         return false;
       }
+      // double checks that the pronunciation is converted to furigana
       this.pronunciation = wanakana.toKana(this.pronunciation);
+      // capitalizes the meaning input
+      this.meaning = this.meaning.toUpperCase();
       this.loading = true;
       this.sendRequest();
     },
-
-    // wanakanaTrans() {
-    //   var pronunInput = document.getElementById('pronunciation');
-    //   wanakana.bind(pronunInput);
-    // },
 
     sendRequest () {
       // sends a newly created vocab to the server
@@ -87,7 +85,7 @@ export default {
       })
       .catch((error) => {
         console.error('VocabForm -> sendRequest error');
-        alert("Error. Vocabulary not submitted.")
+        alert("Error. Vocabulary not submitted. Please make sure you have filled out both the word and the meaning fields.")
       });
     },
     toKana () {
@@ -111,6 +109,9 @@ export default {
 
 #word-form {
   width: 100%;
+  input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    text-transform: capitalize;
+  }
 }
 
 #form-top-line {
@@ -125,6 +126,9 @@ export default {
   }
   .meaning-group {
     width: 30%;
+    input {
+      text-transform: uppercase;
+    }
   }
 }
 
