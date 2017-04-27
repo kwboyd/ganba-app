@@ -87,6 +87,7 @@ export default {
       })
       .catch((error) => {
         console.error('VocabForm -> sendRequest error');
+        alert("Error. Vocabulary not submitted.")
       });
     },
     toKana () {

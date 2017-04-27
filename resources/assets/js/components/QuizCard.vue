@@ -35,6 +35,7 @@
     </div>
   </transition>
   </div>
+  <p>*Pronunciation entered in romaji will be auto-transliterated into furigana. Use CAPS LOCK for katakana.</p>
   <button @click="finishQuiz" id="quit-button" class="danger-button button-large">Quit quiz</button>
 </div>
 </template>
@@ -62,6 +63,8 @@ export default {
     checkAnswers() {
       // turns off active quizzing mode
       this.quizzing = false;
+      // changes pronunciation into furigana so it matches the database
+      // necessary because wanakana will not transliterate the final syllable during typing
       this.pronunAnswer = wanakana.toKana(this.pronunAnswer);
       if (this.pronunAnswer == this.quizVocabs[this.wordIndex].pronunciation) {
         // checks if pronunciation input is correct
@@ -90,11 +93,15 @@ export default {
     nextWord () {
       // goes to next word
       if (this.quizVocabs[this.wordIndex].pronunciation != null) {
+        // checks if the current word has pronunciation
+        // if so, unbinds wanakana from it so it doesn't bind to the next word's meaning input
         wanakana.unbind(this.$refs.pronunQuizInput);
       }
       this.resetAnswers();
       this.wordIndex++;
       if (this.quizVocabs[this.wordIndex].pronunciation != null) {
+        // checks if the new word has pronunciation
+        // if so, binds wanakana to it
         wanakana.bind(this.$refs.pronunQuizInput, {IMEMode: true});
       }
     },
@@ -107,6 +114,8 @@ export default {
       this.resetAnswers();
     },
     toKana () {
+      // transliterates the input to furigana on blur
+      // necessary because wanakana will not transliterate the final syllable during typing
       this.pronunAnswer = wanakana.toKana(this.pronunAnswer);
     }
   },
@@ -116,6 +125,8 @@ export default {
     this.resetAnswers();
 
     if (this.quizVocabs[this.wordIndex].pronunciation != null) {
+      // checks if the first word has pronunciation
+      // if so, binds wanakana to it
       wanakana.bind(this.$refs.pronunQuizInput, {IMEMode: true});
     }
   }

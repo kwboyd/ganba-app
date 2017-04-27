@@ -89,6 +89,7 @@ export default {
         })
         .catch((error) => {
           console.log('Vocab -> remove error');
+          alert("Error. Vocabulary not deleted.")
         });
     },
 
@@ -114,6 +115,7 @@ export default {
         })
         .catch((error) => {
           console.log('Vocab -> save error');
+          alert("Error. Changes not saved.")
         });
     },
 
