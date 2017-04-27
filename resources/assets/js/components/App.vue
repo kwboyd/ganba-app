@@ -23,7 +23,9 @@
     <QuizCard @quizDone="finishQuiz" :quizVocabs="quizVocabs"></QuizCard>
   </div>
 </transition-group>
-
+<transition name="fade">
+  <MainLoader v-if="mainLoading"></MainLoader>
+</transition>
 </div>
 </template>
 
@@ -36,6 +38,7 @@ import TopNav from './TopNav';
 import Filler from './Filler';
 import BottomNav from './BottomNav';
 import QuizCard from './QuizCard';
+import MainLoader from './MainLoader';
 
 export default {
   components: {
@@ -45,7 +48,8 @@ export default {
     TopNav,
     Filler,
     BottomNav,
-    QuizCard
+    QuizCard,
+    MainLoader
   },
   data () {
     return {
@@ -55,6 +59,7 @@ export default {
       kanaconverted: '',
       quizVocabs: [],
       quizMode: false,
+      mainLoading: false
     }
   },
   mounted () {
@@ -102,16 +107,19 @@ export default {
     },
     fetch () {
       // fetches all of the vocabs from server
+      this.mainLoading = true;
       console.log('App -> fetch');
       axios.get('/vocabs')
         .then((response) => {
           console.log('App -> fetch success');
           console.log(response.data);
           this.vocabs = response.data;
+          this.mainLoading = false;
         })
         .catch((response) => {
           console.log('App -> fetch error');
           // show error
+          this.mainLoading = false;
         })
     },
 
@@ -182,7 +190,7 @@ h2, h3, h4, h5, h6 {
   font-family: $header-font;
 }
 
-p, label, ol {
+p, label, ol, ul {
   font-family: $body-font;
 }
 
@@ -234,6 +242,19 @@ ol {
   font-weight: 700;
   li {
     margin-top: 3px;
+  }
+}
+
+.outside-link {
+  color: $teal;
+  &:hover {
+    color: $dark-teal;
+  }
+}
+
+ul {
+  li {
+    list-style-type: square;
   }
 }
 

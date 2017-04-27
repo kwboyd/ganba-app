@@ -1,12 +1,12 @@
 <template lang="html">
   <header>
     <div class="nav-wrapper">
-      <h1><a @click="returnHome" href="#"><span id="title">Ganba!</span></a><span id="description">Flashcard Quizzes for Japanese Learners</span></h1>
+      <h1><a @click="returnHome" href="/"><span id="title">Ganba!</span></a><span id="description">Flashcard Quizzes for Japanese Learners</span></h1>
       <nav>
         <a href="http://www.kwboyd.com" alt="Kate Boyd Portfolio">Creator</a>
         <a>Styleguide</a>
         <a href="https://kwboyd.gitbooks.io/ganba/content/" alt="Documentation">Documentation</a>
-        <a>Credits</a>
+        <a href="/credits" alt="Credits">Credits</a>
         <a href="https://github.com/kwboyd/ganba-app" alt="GitHub">GitHub</a>
       </nav>
     </div>

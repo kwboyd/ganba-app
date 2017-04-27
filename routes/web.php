@@ -27,3 +27,8 @@ Route::delete('/vocabs/{id}', 'VocabController@destroy');
 Route::get('/', function () {
   return view('app');
 });
+
+
+Route::get('/credits', function () {
+  return view('credits');
+});
