@@ -31,8 +31,8 @@
         <!-- shows if in editing mode -->
         <p>
           <input maxlength="7" type="text" v-model="word" />
-          <input maxlength="16" type="text" v-model="pronunciation" />
-          <input maxlength="40" type="text" v-model="meaning" />
+          <input @blur="kanaSwitch" id="pronun-edit" maxlength="16" type="text" v-model="pronunciation" />
+          <input id="meaning-edit" maxlength="40" type="text" v-model="meaning" />
           <textarea maxlength="30" v-model="sentence"></textarea>
         </p>
         <p>
@@ -69,7 +69,18 @@ export default {
     }
   },
 
+  mounted() {
+    // binds wanakana to pronunciation editing input
+    var pronunEdit = document.getElementById('pronun-edit');
+    window.wanakana.bind(pronunEdit, {IMEMode: true});
+  },
+
   methods: {
+
+    kanaSwitch () {
+      // converts pronunciation into furigana
+      this.pronunciation = window.wanakana.toKana(this.pronunciation);
+    },
     addVocab () {
       // emits event that selected vocab should be added to quiz array, sets added to true
       console.log('Vocab -> add (for quiz)');
@@ -104,6 +115,10 @@ export default {
     save () {
       // sends changes to updated vocabulary to server
       console.log('Vocab -> save');
+      // double checks pronunciation got switched to kana before saving
+      this.pronunciation = window.wanakana.toKana(this.pronunciation);
+      // capitalizes meaning before saving
+      this.meaning = this.meaning.toUpperCase();
       axios.put(`/vocabs/${this.vocab.id}`, {
           word: this.word,
           meaning: this.meaning,
@@ -147,6 +162,13 @@ export default {
 
 .tool > i {
   margin-left: 15px;
+}
+
+#meaning-edit {
+    text-transform: uppercase;
+    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      text-transform: uppercase;
+    }
 }
 
 .card {

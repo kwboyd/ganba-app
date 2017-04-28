@@ -29,7 +29,7 @@
 
     <div class="button-div">
       <!-- button disabled if loading -->
-      <button class="primary-button medium" @click="create" :disabled="loading">Add word</button>
+      <button class="primary-button medium" @click.prevent="create" :disabled="loading">Add word</button>
       <Loader v-show="loading"></Loader>
     </div>
 

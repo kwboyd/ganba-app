@@ -70,6 +70,7 @@ export default {
     }
   },
   mounted () {
+    this.mainLoading = true;
     this.fetch();
     // fetches data from server when app loads
   },
@@ -105,7 +106,6 @@ export default {
     },
     fetch () {
       // fetches all of the vocabs from server
-      this.mainLoading = true;
       console.log('App -> fetch');
       axios.get('/vocabs')
         .then((response) => {
