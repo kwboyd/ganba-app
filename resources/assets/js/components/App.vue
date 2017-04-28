@@ -1,30 +1,38 @@
 <template lang="html">
 <div>
   <TopNav @homeClicked="goHome"></TopNav>
-  <transition-group name="fade" mode="out-in" tag="div">
-  <div v-show="!quizMode"  key="1">
-    <div class="container">
-      <Intro></Intro>
-      <VocabForm  @created="fetch"></VocabForm>
-        <h6>Your Deck:</h6>
-      <div class="deck">
-          <p v-if="this.vocabs.length == 0">You don't have any words in your deck yet.</p>
-          <Vocab v-for="(vocab, index) in reverseVocabs" :key="vocab.id"
-          :vocab="vocab" @updated="update" @wordRemoved="removeQuizWord"
-          @wordAdded="addQuizWord" @deleted="remove"></Vocab>
-          <Filler v-if="this.vocabs.length % 3 >= 1"></Filler>
-          <Filler v-if="this.vocabs.length % 3 == 1"></Filler>
+  <transition-group v-if="!mainLoading" name="fade" mode="out-in" tag="div">
+    <!-- displays if done loading -->
+    <div v-show="!quizMode"  key="1">
+      <!-- displays if not in quiz mode -->
+      <div class="container">
+        <Intro></Intro>
+        <VocabForm  @created="fetch"></VocabForm>
+          <h6>Your Deck:</h6>
+        <div class="deck">
+            <!-- checks if there is at least one vocab word -->
+            <p v-if="this.vocabs.length == 0">You don't have any words in your deck yet.</p>
+            <!-- loops through vocabulary in reverse order so new ones show up on top -->
+            <Vocab v-for="(vocab, index) in reverseVocabs" :key="vocab.id"
+            :vocab="vocab" @updated="update" @wordRemoved="removeQuizWord"
+            @wordAdded="addQuizWord" @deleted="remove"></Vocab>
+            <!-- fills in the grid with extra space so elements align properly -->
+            <Filler v-if="this.vocabs.length % 3 >= 1"></Filler>
+            <Filler v-if="this.vocabs.length % 3 == 1"></Filler>
+        </div>
       </div>
+      <!-- bottom nav displays only if at least one word added to the quiz -->
+      <BottomNav @beginQuiz="quizModeStart" :quizReady="quizReady" :quizVocabs="quizVocabs"></BottomNav>
     </div>
-    <BottomNav @beginQuiz="quizModeStart" :quizReady="quizReady" :quizVocabs="quizVocabs"></BottomNav>
-  </div>
-  <div v-if="quizMode" key="2">
-    <QuizCard @quizDone="finishQuiz" :quizVocabs="quizVocabs"></QuizCard>
-  </div>
-</transition-group>
-<transition name="fade">
-  <MainLoader v-if="mainLoading"></MainLoader>
-</transition>
+    <div v-if="quizMode" key="2">
+      <!-- displays the quizmode cards -->
+      <QuizCard @quizDone="finishQuiz" :quizVocabs="quizVocabs"></QuizCard>
+    </div>
+  </transition-group>
+  <transition name="fade">
+    <!-- pre-loader for whole page -->
+    <MainLoader v-if="mainLoading"></MainLoader>
+  </transition>
 </div>
 </template>
 
@@ -82,15 +90,6 @@ export default {
   },
 
   methods: {
-    kana () {
-      // this.kanaconverted = this.imeInput.slice(0,-1);
-      // // var currentKana = this.kanaconverted;
-      // this.kanaime = wanakana.toKana(this.kanaconverted);
-      // if (this.Imeinput.length > 2) {
-      //   this.Imeinput = this.kanaime + this.Imeinput.slice(this.Imeinput.length - 1);
-      // }
-      // this.Imeinput = this.kanaime;
-    },
     addQuizWord(vocab) {
       // adds selected vocab to quizVocabs
       this.quizVocabs.push(vocab);
@@ -160,6 +159,8 @@ export default {
 <style lang="scss">
 @import '../../sass/_variables.scss';
 
+/* General styles */
+
 body {
   background-color: $beige;
 }
@@ -177,6 +178,27 @@ a:hover {
   text-decoration: none;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
+.inline {
+  display: inline;
+}
+
+.container {
+  width: 90%;
+  margin: 40px auto;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+/* Header styles */
+
 h1 {
   font-family: $logo-font;
 }
@@ -191,6 +213,15 @@ h2, h3, h4, h5, h6 {
 
 p, label, ol, ul {
   font-family: $body-font;
+}
+
+h1 {
+  margin-left: 20px;
+  font-family: $logo-font;
+  font-weight: 400;
+  display: flex;
+  align-items: baseline;
+  font-size: 2.1em;
 }
 
 h2, h5, h6 {
@@ -229,6 +260,8 @@ h6 {
   font-size: 15pt;
 }
 
+/* Text styles */
+
 p {
   font-size: 10.5pt;
   font-weight: 400;
@@ -257,36 +290,63 @@ ul {
   }
 }
 
-textarea {
-  resize: none;
-}
-
-.inline-block {
-  display: inline-block;
-}
-
-.inline {
-  display: inline;
-}
 
 .note {
   margin-top: 15px;
   font-size: .7em;
 }
 
-h1 {
-  margin-left: 20px;
-  font-family: $logo-font;
-  font-weight: 400;
-  display: flex;
-  align-items: baseline;
-  font-size: 2.1em;
+.text-center {
+  text-align: center;
 }
 
-.container {
-  width: 90%;
-  margin: 40px auto;
+.thin {
+  font-weight: 400;
 }
+
+.regular {
+  font-weight: 500;
+}
+
+.lead {
+  font-weight: 700;
+}
+
+.light {
+  font-size: .7em;
+}
+
+/* Input styles */
+
+textarea {
+  resize: none;
+  width: 100%;
+  min-height: 30px;
+  padding-top: 10px;
+}
+
+input {
+  width: 100%;
+}
+
+label {
+  font-size: 10pt;
+  margin-bottom: 2px;
+}
+
+input, input[type="text"], textarea, select {
+  font-size: 10pt;
+ &:focus {
+   border: 1px solid $teal;
+ }
+}
+
+select {
+  width: 150px;
+  font-size: 1em;
+}
+
+/* Buttons */
 
 .fa-plus-circle {
   color: $teal;
@@ -308,12 +368,6 @@ h1 {
   }
 }
 
-.medium {
-  height: 35px;
-  width: 100px;
-  border-radius: 7px;
-}
-
 .primary-button {
   background-color: $teal;
   border: 1px solid $dark-teal;
@@ -330,40 +384,24 @@ h1 {
   }
 }
 
-.small {
-  height: 22px;
-  width: 70px;
-  border-radius: 5px;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.center {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-}
-
-.slide-fade-enter-active {
-  transition: all .3s ease;
-}
-.slide-fade-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active for <2.1.8 */ {
-  transform: translateX(10px);
-  opacity: 0;
-}
-
 .info-button {
   background-color: $blue;
   border: 1px solid $dark-blue;
   &:hover {
     background-color: $dark-blue;
   }
+}
+
+.small {
+  height: 22px;
+  width: 70px;
+  border-radius: 5px;
+}
+
+.medium {
+  height: 35px;
+  width: 100px;
+  border-radius: 7px;
 }
 
 .large {
@@ -373,10 +411,7 @@ h1 {
   border-radius: 5px;
 }
 
-select {
-  width: 150px;
-  font-size: 1em;
-}
+/* Deck styles for vocab */
 
 .deck {
   display: flex;
@@ -384,6 +419,22 @@ select {
   flex-wrap: wrap;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* Vue transitions */
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for <2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
 }
 
 .fade-enter-active, .fade-leave-active {

@@ -10,8 +10,9 @@
     </head>
     <body>
         <div id="styles"></div>
-
+        <!-- loads vue styles -->
         <script>
+        // csrf token encoding
             window.Laravel = {!! json_encode([
                 'csrfToken' => csrf_token(),
             ]) !!};

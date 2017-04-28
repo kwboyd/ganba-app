@@ -1,8 +1,9 @@
 <template lang="html">
   <div class="footer">
     <div class="footer-wrapper">
-      <p>Current quiz: <span class="bold">{{quizVocabs.length}}</span> words</p>
-      <button :disabled="quizVocabs.length < 1" @click="startQuiz" :class="{inactive: !quizReady}">START QUIZ <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+      <p>Current quiz: <span class="lead">{{quizVocabs.length}}</span> words</p>
+      <!-- disabled until at least one word added to quiz -->
+      <button id="start-button" :disabled="quizVocabs.length < 1" @click="startQuiz" :class="{inactive: !quizReady}">START QUIZ <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
     </div>
   </div>
 </template>
@@ -25,6 +26,8 @@ export default {
 <style lang="scss">
 @import '../../sass/_variables.scss';
 
+/* Footer styles */
+
 .footer {
   width: 100%;
   border-radius: 10px 0px 0px 0px;
@@ -34,7 +37,6 @@ export default {
   position: fixed;
   bottom: 0;
   background-color: $teal;
-
   box-shadow: 0px 2px 15px #bbbbbb;
   padding: 5px;
 }
@@ -76,10 +78,6 @@ export default {
       color: #c0d8d1;
     }
   }
-}
-
-.bold {
-  font-weight: 700;
 }
 
 @media screen and (max-width: 445px) {

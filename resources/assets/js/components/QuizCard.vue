@@ -4,41 +4,64 @@
     <h6>Score: {{score}}/{{scoreTotal}}</h6>
   <div class="quiz-card">
       <div v-if="!results">
+        <!-- displays the current word index out of the total -->
         <p id="word-count">Word: {{this.wordIndex}}/{{quizVocabs.length}}</p>
+
         <p class="quiz-word">{{quizVocabs[this.wordIndex].word}}</p>
+
+        <!-- button to show sentence as long as a sentence was entered. toggles between hide and show -->
         <button v-show="quizVocabs[this.wordIndex].sentence != null" class="center info-button large" id="example-button" @click.prevent="showSentence = !showSentence">{{!showSentence ? 'Show example sentence' : 'Hide example sentence'}}</button>
+
         <p v-show="showSentence" class="quiz-sentence text-center">{{quizVocabs[this.wordIndex].sentence}}</p>
+
+        <!-- shows pronunciation input if a pronunciation was entered -->
         <div v-show="quizVocabs[this.wordIndex].pronunciation != null" class="quiz-group" id="pronun-group">
           <label for="quizpronun">Pronunciation:</label>
+          <!-- converts automatically to furigana -->
           <input ref="pronunQuizInput" @blur="toKana" :disabled="!quizzing" maxlength="16" id="quizpronun" type="text" v-model="pronunAnswer" />
           <p class="result correct" v-if="pronunResult == 'correct'">Correct!</p>
+          <!-- displays correct pronunciation if answer was wrong -->
           <p class="result incorrect" v-if="pronunResult == 'incorrect'">Incorrect! Correct answer: {{quizVocabs[this.wordIndex].pronunciation}}</p>
         </div>
+
         <div class="quiz-group">
           <label for="quizmeaning">Meaning:</label>
+          <!-- converts automatically to caps -->
           <input :disabled="!quizzing" maxlength="40" id="quizmeaning" type="text" v-model="meaningAnswer" />
           <p class="result correct" v-if="meaningResult == 'correct'">Correct!</span></p>
+          <!-- displays correct meaning if answer was wrong -->
           <p class="result incorrect" v-if="meaningResult == 'incorrect'">Incorrect! Correct answer: {{quizVocabs[this.wordIndex].meaning}}</p>
         </div>
+
+
           <button v-if="quizzing" @click.prevent="checkAnswers" class="primary-button submit-button medium">Submit</button>
+
           <transition name="fade">
           <div v-if="!quizzing" class="button-group">
+            <!-- switches between next word and finish quiz depending on how many words are left -->
             <button v-if="this.wordIndex + 1 < quizVocabs.length" @click.prevent="nextWord" class="primary-button continue-button medium">Next Word</button>
             <button v-else @click.prevent="results = true" class="primary-button continue-button medium">Finish Quiz</button>
           </div>
         </transition>
+
     </div>
+
     <transition name="fade">
-    <div v-if="results">
-      <h2 id="final-score">Final score: {{score}}/{{scoreTotal}}</h2>
-      <button @click.prevent="finishQuiz" class="primary-button large center">End Quiz</button>
-    </div>
-  </transition>
+      <div v-if="results">
+        <!-- shows results if quiz is done -->
+        <h2 id="final-score">Final score: {{score}}/{{scoreTotal}}</h2>
+        <button @click.prevent="finishQuiz" class="primary-button large center">End Quiz</button>
+      </div>
+    </transition>
+
+
   </div>
+
   <div class="notes-box">
-    <p class="note">*Pronunciation entered in romaji will be auto-transliterated into furigana. Use CAPS LOCK for katakana.</p>
+    <p class="note">*Pronunciation entered in romaji will be auto-converted into furigana. Use CAPS LOCK for katakana.</p>
     <button @click="finishQuiz" id="quit-button" class="danger-button large">Quit quiz</button>
   </div>
+
 </div>
 </template>
 
@@ -67,8 +90,8 @@ export default {
       // turns off active quizzing mode
       this.quizzing = false;
       // changes pronunciation into furigana so it matches the database
-      // necessary because wanakana will not transliterate the final syllable during typing
-      this.pronunAnswer = wanakana.toKana(this.pronunAnswer);
+      // necessary because wanakana will not convert the final syllable during typing
+      this.pronunAnswer = window.wanakana.toKana(this.pronunAnswer);
       // capitalizes the meaning so it matches the original input
       this.meaningAnswer = this.meaningAnswer.toUpperCase();
       if (this.quizVocabs[this.wordIndex].pronunciation != null) {
@@ -103,14 +126,14 @@ export default {
       if (this.quizVocabs[this.wordIndex].pronunciation != null) {
         // checks if the current word has pronunciation
         // if so, unbinds wanakana from it so it doesn't bind to the next word's meaning input
-        wanakana.unbind(this.$refs.pronunQuizInput);
+        window.wanakana.unbind(this.$refs.pronunQuizInput);
       }
       this.resetAnswers();
       this.wordIndex++;
       if (this.quizVocabs[this.wordIndex].pronunciation != null) {
         // checks if the new word has pronunciation
         // if so, binds wanakana to it
-        wanakana.bind(this.$refs.pronunQuizInput, {IMEMode: true});
+        window.wanakana.bind(this.$refs.pronunQuizInput, {IMEMode: true});
       }
     },
     finishQuiz () {
@@ -122,9 +145,9 @@ export default {
       this.resetAnswers();
     },
     toKana () {
-      // transliterates the input to furigana on blur
-      // necessary because wanakana will not transliterate the final syllable during typing
-      this.pronunAnswer = wanakana.toKana(this.pronunAnswer);
+      // converts the input to furigana on blur
+      // necessary because wanakana will not convert the final syllable during typing
+      this.pronunAnswer = window.wanakana.toKana(this.pronunAnswer);
     }
   },
   mounted () {
@@ -135,7 +158,7 @@ export default {
     if (this.quizVocabs[this.wordIndex].pronunciation != null) {
       // checks if the first word has pronunciation
       // if so, binds wanakana to it
-      wanakana.bind(this.$refs.pronunQuizInput, {IMEMode: true});
+      window.wanakana.bind(this.$refs.pronunQuizInput, {IMEMode: true});
     }
     // sets initial top possible score to length to account for meanings
     this.scoreTotal = this.quizVocabs.length;
@@ -153,6 +176,8 @@ export default {
 <style lang="scss">
 @import '../../sass/_variables.scss';
 
+/* Quiz card styles */
+
 #word-count {
   position: absolute;
   left: 14px;
@@ -162,7 +187,7 @@ export default {
 }
 
 #quizmeaning {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .quizbox {
@@ -177,43 +202,15 @@ export default {
   }
 }
 
-#example-button {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.correct, .incorrect {
-  font-weight: 500;
-}
-
 .quiz-sentence {
   font-size: 1.1em;
   margin-bottom: 10px;
 }
 
-.correct {
-  color: $dark-teal;
-}
-
-.incorrect {
-  color: $dark-red;
-}
-
-.submit-button {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  margin-top: 25px;
-}
-
-#final-score {
-  margin-top: 18%;
-  padding: 0px 25px;
-}
-
 #pronun-group {
   margin-bottom: 30px;
 }
+
 .quiz-group {
   width: 70%;
   margin-left: auto;
@@ -222,14 +219,7 @@ export default {
     display: inline-block;
   }
 }
-.button-group {
-  float: right;
-  margin-right: 15%;
-  margin-top: 0px;
-}
-.result {
-  margin-top: 3px;
-}
+
 .quiz-card {
   margin-bottom: 10px;
   position: relative;
@@ -241,6 +231,7 @@ export default {
   border: 1px solid #aaaaaa;
   box-shadow: 2px 2px 10px #868686;
 }
+
 .quiz-word {
   text-align: center;
   padding-top: 15px;
@@ -263,14 +254,63 @@ export default {
   }
 }
 
+/* Quiz buttons */
+
+#example-button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.submit-button {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-top: 25px;
+}
+
+.button-group {
+  float: right;
+  margin-right: 15%;
+  margin-top: 0px;
+}
+
 #quit-button {
    margin-bottom: 15px;
    margin-top: 5px;
 }
 
+/* Results */
+
+.correct, .incorrect {
+  font-weight: 500;
+}
+
+.correct {
+  color: $dark-teal;
+}
+
+.incorrect {
+  color: $dark-red;
+}
+
+.result {
+  margin-top: 3px;
+}
+
+#final-score {
+  margin-top: 18%;
+  padding: 0px 25px;
+}
+
 @media screen and (max-width: 769px) {
   #word-count {
     font-size: .9em;
+  }
+  .quiz-word {
+    font-size: 3em;
+  }
+  .quiz-card {
+    height: 445px;
   }
 }
 </style>

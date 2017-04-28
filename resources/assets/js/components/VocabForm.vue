@@ -2,29 +2,39 @@
   <div id="word-form">
     <h6>Add word to deck:</h6>
     <div id="form-top-line">
+
       <div class="form-group short-label">
         <label for="word">Word:</label>
         <input maxlength="7" placeholder="Max Length: 7 Char." id="word" type="text" v-model="word" />
       </div>
+
       <div class="form-group short-label">
         <label for="pronunciation">Pronunciation (optional): </label>
+        <!-- converts automatically to furigana -->
         <input @blur="toKana" maxlength="16" placeholder="Max Length: 16 Char." id="pronunciation" type="text" v-model="pronunciation" />
       </div>
+
       <div class="form-group meaning-group">
         <label for="meaning">Meaning: </label>
+        <!-- converts automatically to caps -->
         <input maxlength="40" placeholder="Max Length: 40 Char." id="meaning" type="text" v-model="meaning" />
       </div>
+
     </div>
+
     <div class="form-group sentence-group">
       <label for="sentence">Example sentence (optional): </label>
       <textarea maxlength="30" placeholder="Max Length: 30 Char." id="sentence" v-model="sentence"></textarea>
     </div>
+
     <div class="button-div">
-    <button class="primary-button medium" @click="create" :disabled="loading">Add word</button>
-    <Loader v-show="loading"></Loader>
-  </div>
-  <p class="note">*For convenience, pronunciation will be auto-transliterated into furigana, so you can type in furigana or romaji.
-    In romaji mode, type in CAPITAL LETTERS for katakana. During quizzes, you can input pronunciation in either furigana or romaji and it will be transliterated as well.</p>
+      <!-- button disabled if loading -->
+      <button class="primary-button medium" @click="create" :disabled="loading">Add word</button>
+      <Loader v-show="loading"></Loader>
+    </div>
+
+  <p class="note">*For convenience, pronunciation will be auto-converted into furigana, so you can type in furigana or romaji.
+    In romaji mode, type in CAPITAL LETTERS for katakana. During quizzes, you can input pronunciation in either furigana or romaji and it will be converted as well.</p>
   </div>
 </template>
 
@@ -49,7 +59,7 @@ export default {
 
   mounted() {
     var pronunInput = document.getElementById('pronunciation');
-    wanakana.bind(pronunInput, {IMEMode: true});
+    window.wanakana.bind(pronunInput, {IMEMode: true});
   },
 
   methods: {
@@ -61,7 +71,7 @@ export default {
         return false;
       }
       // double checks that the pronunciation is converted to furigana
-      this.pronunciation = wanakana.toKana(this.pronunciation);
+      this.pronunciation = window.wanakana.toKana(this.pronunciation);
       // capitalizes the meaning input
       this.meaning = this.meaning.toUpperCase();
       this.loading = true;
@@ -89,7 +99,7 @@ export default {
       });
     },
     toKana () {
-      this.pronunciation = wanakana.toKana(this.pronunciation);
+      this.pronunciation = window.wanakana.toKana(this.pronunciation);
     },
 
     reset () {
@@ -106,6 +116,8 @@ export default {
 <style lang="scss">
 @import '../../sass/_variables.scss';
 @import '../../sass/skeletonforms.scss';
+
+/* Vocab form styles */
 
 #word-form {
   width: 100%;
@@ -150,22 +162,6 @@ export default {
 
 .max-length {
   font-size: .8em;
-}
-
-input {
-  width: 100%;
-}
-
-label {
-  font-size: 10pt;
-  margin-bottom: 2px;
-}
-
-input, input[type="text"], textarea, select {
-  font-size: 10pt;
- &:focus {
-   border: 1px solid $teal;
- }
 }
 
 @media screen and (max-width: 950px) {

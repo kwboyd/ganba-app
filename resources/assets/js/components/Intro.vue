@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="intro-text">
     <h3>Let's begin! 始めましょう！</h3>
-    <p>This is an app made to help intermediate to advanced Japanese language learners keep track of
-       and memorize vocabulary through quizzes on pronunciations and meanings. To get started:</p>
+    <p>This is an app made to help intermediate to advanced Japanese language learners memorize vocabulary through quizzes on pronunciations and meanings.
+      It has an optional pronunciation field to account for words with kanji, making it optimized for Japanese specifically. This app also offers a faster quizzing experience by converting pronunciation from romaji without the need to switch to an IME. To get started:</p>
     <div class="instructions">
       <ol>
       <li>Add some words to your deck to study.</li>
@@ -21,6 +21,8 @@ export default {
 
 <style lang="scss">
 @import '../../sass/_variables.scss';
+
+/* Instructions styles */
 
 .intro-text {
   h3 {

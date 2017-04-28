@@ -1,5 +1,9 @@
 {
   "private": true,
+  "name": "Ganba",
+  "description": "A Japanese flashcards app",
+  "version": "0.0.1",
+  "author": "Kate Boyd <kwboyd95@gmail.com> (http://kwboyd.com)",
   "scripts": {
     "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -13,7 +17,5 @@
     "laravel-mix": "^0.8.3",
     "lodash": "^4.17.4",
     "vue": "^2.1.10"
-  },
-  "dependencies": {
   }
 }

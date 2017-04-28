@@ -115,9 +115,9 @@
         <div class="style-wrapper">
           <h4 class="thin">This is the header font Roboto at 400 weight.</h4>
           <h4 class="regular">This is the header font Roboto at 500 weight.</h4>
-          <h4 class="dark">This is the header font Roboto at 700 weight.</h4>
+          <h4 class="lead">This is the header font Roboto at 700 weight.</h4>
           <p class="thin">This is the body font Roboto Slab at 400 weight.</p>
-          <p class="dark">This is the body font Roboto Slab at 700 weight. </p>
+          <p class="lead">This is the body font Roboto Slab at 700 weight. </p>
           <h1>This is a header 1 in Anaheim font.</h1>
           <h2>This is a header 2.</h2>
           <h3>This is a header 3.</h3>
@@ -216,6 +216,7 @@ export default {
 @import '../../sass/_variables.scss';
 @import '../../sass/skeletonforms.scss';
 
+/* Styleguide styles */
 
 #styles-box {
   h1, h2, h3, h4, h5, h6, p{
@@ -280,6 +281,27 @@ export default {
   display: inline-block;
 }
 
+.style-wrapper {
+  margin-left: 10%;
+}
+
+.button-row {
+  display: flex;
+  flex-shrink: 0;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.style-wrapper {
+  textarea {
+    height: 70px;
+  }
+}
+
+/* Styleguide colors */
+
 #red {
   background-color: $red;
 }
@@ -319,39 +341,6 @@ export default {
 
 #dark-blue {
   background-color: $dark-blue;
-}
-
-.thin {
-  font-weight: 400;
-}
-
-.regular {
-  font-weight: 500;
-}
-
-.dark {
-  font-weight: 700;
-}
-
-.style-wrapper {
-  margin-left: 10%;
-}
-
-.lead {
-  font-weight: 700;
-}
-
-.light {
-  font-size: .7em;
-}
-
-.button-row {
-  display: flex;
-  flex-shrink: 0;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
 }
 
 @media screen and (max-width: 990px) {

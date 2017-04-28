@@ -1,9 +1,12 @@
 <template>
     <div class="card">
       <div v-show="this.loading" class="loader-div">
+        <!-- shows loading icon if editing -->
         <Loader></Loader>
       </div>
+
       <div class="live" v-show="!editing">
+        <!-- shows if not in editing mode -->
         <a class="tool" href="#" @click.prevent="remove">
           <i class="fa fa-times" aria-hidden="true"></i>
         </a>
@@ -11,9 +14,11 @@
           <i class="fa fa-pencil" aria-hidden="true"></i>
         </a>
           <a class="tool" href="#" @click.prevent="addVocab" v-if="!this.addedQuiz">
+            <!-- shows add button for quiz -->
             <i class="fa fa-plus-circle" aria-hidden="true"></i>
           </a>
           <a class="tool" href="#" @click.prevent="removeVocab" v-if="this.addedQuiz">
+            <!-- shows minus button for quiz -->
             <i class="fa fa-minus-circle" aria-hidden="true"></i>
           </a>
         <p class="deck-word">{{ vocab.word }}</p>
@@ -21,7 +26,9 @@
         <p class="deck-meaning">{{ vocab.meaning }}</p>
         <p class="deck-sentence">{{ vocab.sentence }}</p>
       </div>
+
       <div class="editing" v-show="editing">
+        <!-- shows if in editing mode -->
         <p>
           <input maxlength="7" type="text" v-model="word" />
           <input maxlength="16" type="text" v-model="pronunciation" />
@@ -33,6 +40,7 @@
           <button class="danger-button small" @click="cancel">Cancel</button>
         </p>
       </div>
+
     </div>
 </template>
 
@@ -135,6 +143,8 @@ export default {
 <style lang="scss">
 @import '../../sass/_variables.scss';
 
+/* Vocab card styles */
+
 .tool > i {
   margin-left: 15px;
 }
@@ -164,15 +174,55 @@ export default {
   }
 }
 
-.live {
-  padding: 5px;
+.loader-div {
+  width: 320px;
+  height: 210px;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  .loader {
+    margin-left:23%;
+    margin-top: 5%;
+    svg {
+      height: 180px;
+    }
+  }
 }
+
+/* Font awesome icon styles */
 
 .fa-minus-circle {
   color: $red;
   &:hover {
     color: $dark-red;
   }
+}
+
+.fa-times {
+  color: $red;
+  font-size: 1.5em;
+  margin-top: 9px;
+  float: left;
+  &:hover {
+    color: $dark-red;
+  }
+}
+
+.fa-pencil {
+  position: absolute;
+  left: 269px;
+  margin-top: 173px;
+  color: $blue;
+  font-size: 1.4em;
+  &:hover {
+    color: $dark-blue;
+  }
+}
+
+/* Live and editing styles */
+
+.live {
+  padding: 5px;
 }
 
 .editing {
@@ -214,41 +264,6 @@ export default {
   font-size: .8em;
 }
 
-.fa-times {
-  color: $red;
-  font-size: 1.5em;
-  margin-top: 9px;
-  float: left;
-  &:hover {
-    color: $dark-red;
-  }
-}
-
-.fa-pencil {
-  position: absolute;
-  left: 269px;
-  margin-top: 173px;
-  color: $blue;
-  font-size: 1.4em;
-  &:hover {
-    color: $dark-blue;
-  }
-}
-
-.loader-div {
-  width: 320px;
-  height: 210px;
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.3);
-  z-index: 100;
-  .loader {
-    margin-left:23%;
-    margin-top: 5%;
-    svg {
-      height: 180px;
-    }
-  }
-}
 
 @media screen and (max-width: 370px) {
   .card {

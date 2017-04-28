@@ -10,8 +10,10 @@
     </head>
     <body>
         <div id="app"></div>
+        <!-- loads vue app -->
 
         <script>
+        // csfr token encoding
             window.Laravel = {!! json_encode([
                 'csrfToken' => csrf_token(),
             ]) !!};

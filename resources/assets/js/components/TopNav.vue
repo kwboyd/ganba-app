@@ -27,6 +27,8 @@ export default {
 <style lang="scss">
 @import '../../sass/_variables.scss';
 
+/* Nav styles */
+
 header {
   height: 60px;
   width: 100%;
@@ -34,6 +36,7 @@ header {
   box-shadow: 0px 2px 8px #bbbbbb;
   margin-bottom: 25px;
 }
+
 .nav-wrapper {
   display: flex;
   align-items: baseline;
@@ -44,6 +47,7 @@ header {
   padding-top: 10px;
   justify-content: space-between;
 }
+
 #description {
   font-size: .5em;
   margin-left: 1.5em;
@@ -62,6 +66,7 @@ nav{
     }
   }
 }
+
 @media screen and (max-width: 900px) {
   header {
     height: 85px;
@@ -84,6 +89,7 @@ nav{
     margin-right: auto;
   }
 }
+
 @media screen and (max-width: 650px) {
   header {
     height: 75px;
@@ -101,12 +107,14 @@ nav{
     font-size: .5em;
   }
 }
+
 @media screen and (max-width: 570px) {
   .nav-wrapper {
     width: 95%;
     font-size: 13px;
   }
 }
+
 @media screen and (max-width: 400px) {
   #description {
     font-size: .5em;

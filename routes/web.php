@@ -23,15 +23,18 @@ Route::get('/vocabs/{id}', 'VocabController@show');
 Route::put('/vocabs/{id}', 'VocabController@update');
 Route::delete('/vocabs/{id}', 'VocabController@destroy');
 
-
+// Index route
 Route::get('/', function () {
   return view('app');
 });
 
+// Credits route
 Route::get('/credits', function () {
   return view('credits');
 });
 
+
+// Styleguide route
 Route::get('/styleguide', function () {
   return view('styleguide');
 });

@@ -10,7 +10,9 @@
     </head>
     <body>
       <div id="credits"></div>
+      <!-- loads vue credits -->
         <script>
+        // csrf token encoding
             window.Laravel = {!! json_encode([
                 'csrfToken' => csrf_token(),
             ]) !!};
