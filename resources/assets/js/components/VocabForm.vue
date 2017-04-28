@@ -20,7 +20,7 @@
       <textarea maxlength="30" placeholder="Max Length: 30 Char." id="sentence" v-model="sentence"></textarea>
     </div>
     <div class="button-div">
-    <button class="primary-button" @click="create" :disabled="loading">Add word</button>
+    <button class="primary-button medium" @click="create" :disabled="loading">Add word</button>
     <Loader v-show="loading"></Loader>
   </div>
   <p class="note">*For convenience, pronunciation will be auto-transliterated into furigana, so you can type in furigana or romaji.
@@ -161,7 +161,7 @@ label {
   margin-bottom: 2px;
 }
 
-input, textarea {
+input, input[type="text"], textarea, select {
   font-size: 10pt;
  &:focus {
    border: 1px solid $teal;

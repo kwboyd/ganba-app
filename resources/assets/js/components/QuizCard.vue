@@ -6,7 +6,7 @@
       <div v-if="!results">
         <p id="word-count">Word: {{this.wordIndex}}/{{quizVocabs.length}}</p>
         <p class="quiz-word">{{quizVocabs[this.wordIndex].word}}</p>
-        <button v-show="quizVocabs[this.wordIndex].sentence != null" class="center info-button button-large" id="example-button" @click.prevent="showSentence = !showSentence">{{!showSentence ? 'Show example sentence' : 'Hide example sentence'}}</button>
+        <button v-show="quizVocabs[this.wordIndex].sentence != null" class="center info-button large" id="example-button" @click.prevent="showSentence = !showSentence">{{!showSentence ? 'Show example sentence' : 'Hide example sentence'}}</button>
         <p v-show="showSentence" class="quiz-sentence text-center">{{quizVocabs[this.wordIndex].sentence}}</p>
         <div v-show="quizVocabs[this.wordIndex].pronunciation != null" class="quiz-group" id="pronun-group">
           <label for="quizpronun">Pronunciation:</label>
@@ -20,24 +20,24 @@
           <p class="result correct" v-if="meaningResult == 'correct'">Correct!</span></p>
           <p class="result incorrect" v-if="meaningResult == 'incorrect'">Incorrect! Correct answer: {{quizVocabs[this.wordIndex].meaning}}</p>
         </div>
-          <button v-if="quizzing" @click.prevent="checkAnswers" class="primary-button submit-button">Submit</button>
+          <button v-if="quizzing" @click.prevent="checkAnswers" class="primary-button submit-button medium">Submit</button>
           <transition name="fade">
           <div v-if="!quizzing" class="button-group">
-            <button v-if="this.wordIndex + 1 < quizVocabs.length" @click.prevent="nextWord" class="primary-button continue-button">Next Word</button>
-            <button v-else @click.prevent="results = true" class="primary-button continue-button">Finish Quiz</button>
+            <button v-if="this.wordIndex + 1 < quizVocabs.length" @click.prevent="nextWord" class="primary-button continue-button medium">Next Word</button>
+            <button v-else @click.prevent="results = true" class="primary-button continue-button medium">Finish Quiz</button>
           </div>
         </transition>
     </div>
     <transition name="fade">
     <div v-if="results">
       <h2 id="final-score">Final score: {{score}}/{{scoreTotal}}</h2>
-      <button @click.prevent="finishQuiz" class="primary-button button-large center">End Quiz</button>
+      <button @click.prevent="finishQuiz" class="primary-button large center">End Quiz</button>
     </div>
   </transition>
   </div>
   <div class="notes-box">
     <p class="note">*Pronunciation entered in romaji will be auto-transliterated into furigana. Use CAPS LOCK for katakana.</p>
-    <button @click="finishQuiz" id="quit-button" class="danger-button button-large">Quit quiz</button>
+    <button @click="finishQuiz" id="quit-button" class="danger-button large">Quit quiz</button>
   </div>
 </div>
 </template>

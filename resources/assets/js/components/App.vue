@@ -298,11 +298,7 @@ h1 {
 }
 
 .primary-button, .danger-button, .info-button {
-  height: 35px;
-  width: 100px;
   color: white;
-  border-radius: 7px;
-  // border: 1px solid #747474;
   margin-top: 10px;
   -webkit-appearance: none;
   font-size: 7.5pt;
@@ -310,6 +306,12 @@ h1 {
   &:focus {
     outline: none;
   }
+}
+
+.medium {
+  height: 35px;
+  width: 100px;
+  border-radius: 7px;
 }
 
 .primary-button {
@@ -328,7 +330,7 @@ h1 {
   }
 }
 
-.button-small {
+.small {
   height: 22px;
   width: 70px;
   border-radius: 5px;
@@ -364,11 +366,16 @@ h1 {
   }
 }
 
-.button-large {
+.large {
   width: 200px;
   height: 25px;
   font-size: .7em;
   border-radius: 5px;
+}
+
+select {
+  width: 150px;
+  font-size: 1em;
 }
 
 .deck {

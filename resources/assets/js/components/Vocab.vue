@@ -29,8 +29,8 @@
           <textarea maxlength="30" v-model="sentence"></textarea>
         </p>
         <p>
-          <button class="primary-button button-small" @click="save">Save</button>
-          <button class="danger-button button-small" @click="cancel">Cancel</button>
+          <button class="primary-button small" @click="save">Save</button>
+          <button class="danger-button small" @click="cancel">Cancel</button>
         </p>
       </div>
     </div>

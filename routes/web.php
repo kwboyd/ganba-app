@@ -32,6 +32,6 @@ Route::get('/credits', function () {
   return view('credits');
 });
 
-Route::get('/styles', function () {
-  return view('styles');
+Route::get('/styleguide', function () {
+  return view('styleguide');
 });
