@@ -158,6 +158,7 @@ export default {
 
 <style lang="scss">
 @import '../../sass/_variables.scss';
+@import '../../sass/skeletonforms.scss';
 
 /* General styles */
 
@@ -444,6 +445,145 @@ select {
   opacity: 0
 }
 
+/* Styleguide styles */
+
+#styles-box {
+  h1, h2, h3, h4, h5, h6, p{
+    text-align: left;
+    margin: 15px 0px;
+  }
+  ol, ul {
+    margin-top: 30px;
+  }
+  ul {
+    margin-bottom: 50px;
+  }
+  #styles-title {
+    text-align: left;
+    margin-left: 15%;
+    margin-bottom: 30px;
+  }
+}
+
+.split-box {
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 30px;
+}
+
+.left {
+  width: 28%;
+  border-right: 3px solid #bbbbbb;
+  h5 {
+    text-align: left;
+  }
+}
+
+.right {
+  width: 70%;
+}
+
+.color-row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+
+.color-names {
+  font-size: .9em;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.color-box {
+  display: flex;
+  align-items: flex-start;
+}
+
+.color-square {
+  width: 75px;
+  height: 75px;
+  margin-bottom: 3px;
+  display: inline-block;
+}
+
+.style-wrapper {
+  margin-left: 10%;
+}
+
+.button-row {
+  display: flex;
+  flex-shrink: 0;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.style-wrapper {
+  textarea {
+    height: 70px;
+  }
+}
+
+/* Styleguide colors */
+
+#red {
+  background-color: $red;
+}
+
+#dark-red {
+  background-color: $dark-red;
+}
+
+#beige {
+  background-color: $beige;
+  border: 3px solid $dark-gray;
+}
+
+#light-gray {
+  background-color: $light-gray;
+}
+
+#teal {
+  background-color: $teal;
+}
+
+#dark-teal {
+  background-color: $dark-teal;
+}
+
+#pure-gray {
+  background-color: $pure-gray;
+}
+
+#dark-gray {
+  background-color: $dark-gray;
+}
+
+#blue {
+  background-color: $blue;
+}
+
+#dark-blue {
+  background-color: $dark-blue;
+}
+
+/* Credits styles */
+
+#credits-box {
+  h3 {
+    text-align: left;
+  }
+  ul {
+    margin-top: 10px;
+  }
+}
+
+
 @media screen and (max-width: 1140px) {
   .deck {
     justify-content: center;
@@ -452,6 +592,13 @@ select {
     .card, .filler {
       margin-right: 30px;
     }
+  }
+}
+
+
+@media screen and (max-width: 990px) {
+  .button-row {
+    flex-direction: column;
   }
 }
 
@@ -465,6 +612,28 @@ select {
     .card, .filler {
       margin-left: 20px;
       margin-right: 0px;
+    }
+  }
+  .split-box {
+    flex-direction: column;
+    width: 95%;
+  }
+  .left {
+    border-right: none;
+    border-bottom: 3px solid #bbbbbb;
+  }
+  .right {
+    width: 100%;
+  }
+  .color-row:first-child {
+    margin-top: 20px;
+  }
+  .style-wrapper {
+    margin-left: 0;
+  }
+  #styles-box {
+    #styles-title {
+      margin-bottom: 0px;
     }
   }
 }
